@@ -1,0 +1,239 @@
+Perfect instinct. Once you separate data → semantics → renderer, everything gets cleaner and extensible.
+
+Below is a renderer-agnostic JSON schema (v1) plus a semantic color token system that works equally well for TUI, HTML, PDF, screenshots, and future renderers.
+
+I’ll keep this tight but real.
+
+1. Core idea
+
+JSON is the source of truth
+
+Renderers are pure views
+
+Semantics are explicit, not inferred at render time
+
+Colors are tokens, not ANSI or hex
+
+Think: design tokens for code insight.
+
+2. Top-level JSON schema (v1)
+{
+  "meta": {
+    "schema_version": "1.0",
+    "generated_at": "2026-01-15T23:10:00Z",
+    "repo": {
+      "name": "example-repo",
+      "commit": "abc123",
+      "branch": "main"
+    }
+  },
+
+  "summary": {
+    "files": 493,
+    "loc_total": 126433,
+    "languages": 7
+  },
+
+  "responsibilities": [
+    {
+      "role": "prod",
+      "loc": 62140,
+      "files": 214,
+      "confidence": 0.94
+    },
+    {
+      "role": "test",
+      "loc": 29420,
+      "files": 161,
+      "confidence": 0.91,
+      "breakdown": {
+        "unit": 0.81,
+        "integration": 0.11,
+        "e2e": 0.08
+      }
+    },
+    {
+      "role": "infra",
+      "loc": 14210,
+      "files": 62,
+      "notes": ["42% CI/CD definitions"]
+    }
+  ],
+
+  "ratios": {
+    "test_to_prod": 0.47,
+    "infra_to_prod": 0.23,
+    "docs_to_prod": 0.18,
+    "generated_to_prod": 0.04
+  },
+
+  "languages": [
+    {
+      "language": "Go",
+      "responsibilities": {
+        "prod": 49210,
+        "test": 18920
+      }
+    },
+    {
+      "language": "MDX",
+      "responsibilities": {
+        "docs": 11120
+      }
+    }
+  ],
+
+  "trend": {
+    "test_to_prod": {
+      "window": "12m",
+      "sparkline": [0.32, 0.35, 0.38, 0.41, 0.44, 0.46, 0.47],
+      "interpretation": "upward since Q2"
+    }
+  },
+
+  "confidence": {
+    "auto_classified": 0.92,
+    "heuristic": 0.08
+  }
+}
+
+Why this structure works
+
+No renderer assumptions
+
+Ratios are first-class (not recomputed)
+
+Confidence is explicit (Tufte honesty)
+
+Trend data is pre-digested (no charts needed)
+
+3. Semantic role vocabulary (closed set)
+
+Renderers should treat these as enumerated, not free text.
+
+{
+  "roles": [
+    "prod",
+    "test",
+    "infra",
+    "docs",
+    "config",
+    "generated",
+    "vendor",
+    "scripts",
+    "examples",
+    "deprecated"
+  ]
+}
+
+
+Optional sub-roles (tags, not primary axes):
+
+{
+  "test_subroles": ["unit", "integration", "e2e", "contract", "fixtures"]
+}
+
+4. Semantic color token system (this is the key)
+Design principle
+
+Color encodes responsibility, not magnitude, not language.
+
+Renderers decide how to express color (ANSI, CSS, grayscale).
+
+Canonical semantic tokens
+
+These are names, not values:
+
+{
+  "semantic_colors": {
+    "prod": "semantic.primary",
+    "test": "semantic.safety",
+    "infra": "semantic.operational",
+    "docs": "semantic.knowledge",
+    "config": "semantic.fragility",
+    "generated": "semantic.low_emphasis",
+    "vendor": "semantic.external",
+    "deprecated": "semantic.warning"
+  }
+}
+
+Token intent (important for renderers)
+Token	Meaning	Visual intent
+semantic.primary	Core value	Neutral foreground
+semantic.safety	Confidence & verification	Muted green/blue
+semantic.operational	Risk & complexity	Amber / copper
+semantic.knowledge	Human understanding	Soft gray
+semantic.fragility	Config sensitivity	Gray-blue
+semantic.low_emphasis	Not owned	Faint / dim
+semantic.external	Third-party	Italic / dim
+semantic.warning	Technical debt	Desaturated red
+
+This allows:
+
+Terminal renderer → ANSI 256 colors
+
+Web renderer → CSS variables
+
+Print → grayscale mappings
+
+Example: renderer mappings (not in schema)
+TUI
+semantic.safety → ANSI 37 (dim cyan)
+semantic.operational → ANSI 178 (amber)
+semantic.low_emphasis → ANSI 240 (gray)
+
+Web
+--semantic-safety: hsl(200, 25%, 55%);
+--semantic-operational: hsl(35, 45%, 55%);
+--semantic-low-emphasis: hsl(0, 0%, 65%);
+
+
+Same meaning. Different media.
+
+5. Renderer contract (critical)
+
+Every renderer must follow these rules:
+
+Numbers are never colored
+
+Only labels may receive semantic color
+
+One semantic color per line
+
+No legends required
+
+Color must degrade gracefully to monochrome
+
+If a renderer violates this, it’s incorrect.
+
+6. Why this is Tufte-correct
+
+Data > decoration
+
+Semantics are explicit
+
+Color is annotation
+
+Ratios are first-class
+
+Confidence is disclosed
+
+Trends are shown minimally
+
+This is exactly how Tufte would design a CLI if he liked terminals.
+
+7. What this unlocks next
+
+With this schema you can easily add:
+
+PR diffs (before / after)
+
+Repo comparisons
+
+Risk scoring
+
+CI gates (“infra grew 20%”)
+
+Agent reasoning (“tests lag prod in billing/”)
+
+All without touching renderers.

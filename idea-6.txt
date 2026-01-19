@@ -1,0 +1,319 @@
+Yep. If you want fast understanding without deep reading, you need to treat a repo like a living system and use many weak signals that compound into strong insight.
+
+Here are creative, high-signal views that go way beyond LOC/language/test split—most are implementable with shallow parsing, git metadata, build graph introspection, and dependency info.
+
+1) The Responsibility Map
+
+You already have roles (prod/test/infra/docs/config/...). Go one level deeper:
+
+Add a second axis: Boundary
+
+core (domain logic)
+
+edge (integrations/adapters)
+
+api (public surface)
+
+data (storage/migrations)
+
+ui (presentation)
+
+Why it’s powerful: you can instantly see “we’re mostly edge code” (fragile) vs “we’re mostly core” (durable).
+
+How to infer cheaply: path conventions + file naming + imports (shallow) + module graph.
+
+2) Churn × Size “Heat Ledger” (the most underrated insight)
+
+A file’s risk is closer to:
+
+risk ≈ churn × coupling × criticality
+
+Start with the easiest:
+
+LOC per file
+
+commits touching file in last 30/90 days
+
+unique authors in last 90 days
+
+Output a table of top 20 “hot files”:
+
+“big and changing” (highest risk)
+
+“small but changing constantly” (often config/edge bugs)
+
+“big and never changing” (legacy monolith / hard-to-touch)
+
+No deep reading required; git log --name-only gets you 80%.
+
+3) The “Bus Factor” map (ownership, not people drama)
+
+Compute for directories/modules:
+
+% of changes by top contributor
+
+of contributors above N commits
+
+Insight: “billing/ has bus factor 1” is more actionable than “billing/ has 8k LOC”.
+
+4) Boundary-Crossing Index (coupling proxy)
+
+Look at dependency edges between modules/packages.
+
+Create metrics:
+
+fan_in (how many depend on this)
+
+fan_out (how many this depends on)
+
+“cross-boundary imports” (core importing edge is a smell)
+
+Minimal implementation: parse imports at top of files (Go/TS) without full AST.
+
+5) “API Surface Area” inventory
+
+List and count:
+
+exported Go symbols / public TS exports
+
+routes / handlers
+
+RPC/proto endpoints
+
+CLI commands
+
+config keys/env vars
+
+Why it matters: public surfaces are where compatibility cost lives.
+
+Bonus: split “public” vs “internal” and show ratio over time.
+
+6) Config Surface & Fragility Meter
+
+Config is a silent killer.
+
+Track:
+
+count of env vars used
+
+count of config keys
+
+number of places config is read
+
+“config complexity” = #keys × #environments × #consumers
+
+Cheap signal: grep for os.Getenv, process.env, viper.Get*, flag.*, YAML reads.
+
+7) Test Coverage Without Coverage (proxy coverage)
+
+Even if you can’t run coverage, you can estimate test attention:
+
+For each module/dir:
+
+ratio of test files to prod files
+
+ratio of test LOC to prod LOC
+
+presence of e2e/integration harnesses
+
+“orphan prod files” (no nearby tests)
+
+This catches deserts quickly.
+
+8) “Time-to-Build” topology (build graph understanding)
+
+Instead of reading code, learn the repo from its build system:
+
+Go modules, packages
+
+TS workspaces/turbo graph
+
+Make targets
+
+CI pipeline steps
+
+Output:
+
+dependency DAG summary
+
+top-level entrypoints
+
+“roots” and “leaves”
+
+This often tells you how the system thinks of itself.
+
+9) Interface Inventory (where seams exist)
+
+Seams are comprehension shortcuts.
+
+Detect:
+
+Go interfaces and their implementers (cheap via type X interface + var _ X = (*Y)(nil) patterns)
+
+TS interfaces/types used across packages
+
+protobuf/grpc/http client boundaries
+
+Report:
+
+“top interfaces by #implementations”
+
+“top implementations by #interfaces”
+
+This gives you the “shape” of architecture without reading logic.
+
+10) Error Surface Map
+
+Errors tell stories.
+
+Count and cluster:
+
+return fmt.Errorf / errors.New
+
+logged error messages
+
+sentinel errors
+
+“panic” and “TODO/FIXME”
+
+Make a “top error-producing modules” list.
+
+It’s a surprisingly accurate fault-line detector.
+
+11) Observability Surface
+
+For distributed systems: look for instrumentation points:
+
+trace/span creation
+
+metrics emitted
+
+logger usage patterns
+
+Summarize:
+
+“modules with tracing”
+
+“modules without any instrumentation”
+
+“top log volume candidates” (by #log statements)
+
+This tells you where visibility will be good/bad before you ship.
+
+12) “Generated vs Handwritten” truth
+
+Generated code inflates LOC and hides complexity.
+
+Detect:
+
+header markers (“Code generated…”)
+
+directories like gen/, pb/, dist/
+
+tool outputs
+
+Report:
+
+total generated LOC
+
+generated LOC by source tool (protobuf, openapi, sqlc, etc.)
+
+This prevents false conclusions about codebase size.
+
+13) The “Change Risk Score” per directory
+
+Composite score (simple, explainable):
+
+size (LOC)
+
+churn (commits last 90d)
+
+coupling (fan-in/out)
+
+low tests (test/prod ratio low)
+
+high config touchpoints
+
+low bus factor
+
+Output top risky directories. This becomes your “where to invest” list.
+
+14) “Narrative diff” between two commits (Tufte-friendly)
+
+Not “what changed”, but “what meaning changed”:
+
+responsibilities shifted (infra up, test down)
+
+API surface changed (#exports/routes)
+
+risk score shifted
+
+hot files list changed
+
+bus factor changed
+
+This is perfect for PR comments and release notes.
+
+15) “Concept extraction” without deep reading (careful, but useful)
+
+Do shallow token frequency on identifiers (not full semantics):
+
+top nouns in filenames, package names, exported symbols
+
+cluster by prefix/suffix patterns (User*, Auth*, Invoice*)
+
+detect “domain vocabulary” and its concentration
+
+This helps new readers orient: “auth is everywhere”, “billing is isolated”, etc.
+
+16) Architectural smell detectors (cheap heuristics)
+
+Signal-based, no AST required:
+
+core importing infra (boundary inversion)
+
+cyclic deps between packages
+
+directories with many tiny files (high fragmentation)
+
+directories with few huge files (monolith)
+
+lots of utils/ growth (missing abstractions)
+
+too many TODO/FIXME in one module
+
+These are “X-rays” that guide deeper reading.
+
+If you want the most Tufte single report
+
+The best single-page “insight artifact” is:
+
+Responsibility breakdown
+
+Ratios (test/prod, infra/prod, config/prod)
+
+Risk leaderboard (top 10 dirs by change-risk score)
+
+Hot files (big+churn)
+
+Bus factor warnings
+
+One sparkline trend (test/prod over 12 months)
+
+Everything else is drilldown.
+
+One suggestion that makes this feel magical
+
+Treat every metric as a lens, and allow the user to “pivot”:
+
+by role (infra)
+
+by boundary (edge)
+
+by timeframe (last 30 days)
+
+by ownership (single-author areas)
+
+by coupling (fan-in high)
+
+Same data, different projection → genuine understanding.

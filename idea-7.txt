@@ -1,0 +1,301 @@
+1. Mental model (important)
+
+Think of the tool as three pure stages:
+
+scan  →  infer  →  render
+
+
+Each stage is:
+
+fast
+
+testable
+
+replaceable
+
+Rust excels here.
+
+2. Crate-level architecture
+semantic-loc/
+├─ crates/
+│  ├─ scanner/        # filesystem + git signals (no semantics)
+│  ├─ inference/      # roles, confidence, heuristics
+│  ├─ model/          # shared domain structs (JSON schema)
+│  ├─ renderer-tui/   # terminal renderer
+│  ├─ renderer-web/   # HTML/JSON view
+│  └─ cli/            # argument parsing + orchestration
+
+
+Key rule:
+Renderers never infer meaning. They only consume the model.
+
+3. Core data model (Rust-first, JSON-aligned)
+#[derive(Serialize, Deserialize)]
+pub struct FileRecord {
+    pub path: PathBuf,
+    pub loc: u32,
+    pub language: Option<String>,
+
+    pub role: Role,
+    pub confidence: f32,
+    pub signals: Vec<Signal>,
+
+    pub churn: Option<u32>,
+    pub authors: Option<u32>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum Role {
+    Prod,
+    Test(TestKind),
+    Infra,
+    Docs,
+    Config,
+    Generated,
+    Vendor,
+    Scripts,
+    Examples,
+    Deprecated,
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum Signal {
+    Path,
+    Filename,
+    Extension,
+    Neighborhood,
+    Header,
+    Override,
+}
+
+
+This gives you:
+
+explainability
+
+confidence tracking
+
+clean JSON output
+
+4. Scanner stage (fast, dumb, parallel)
+Responsibilities
+
+Walk filesystem
+
+Count LOC (reuse or embed tokei-style logic)
+
+Extract filenames, extensions
+
+Collect git metadata (optional, async)
+
+Rust crates
+
+ignore (same as ripgrep, respects .gitignore)
+
+rayon (parallel traversal)
+
+gitoxide or git2 (churn, authors)
+
+memmap2 (optional, very large repos)
+
+Output
+
+A flat stream of RawFile:
+
+struct RawFile {
+    path: PathBuf,
+    bytes: u64,
+    loc: u32,
+    language_hint: Option<String>,
+}
+
+
+No semantics here. Keep it cheap.
+
+5. Inference stage (the heart of it)
+
+This is where your insight lives.
+
+Heuristic pipeline (ordered, additive)
+fn infer_role(file: &RawFile, ctx: &Context) -> Inference {
+    let mut score = RoleScore::new();
+
+    score.apply(path_heuristics(file));
+    score.apply(filename_heuristics(file));
+    score.apply(extension_bias(file));
+    score.apply(neighborhood_bias(file, ctx));
+    score.apply(shallow_header_probe(file));
+
+    score.resolve()
+}
+
+
+Each heuristic:
+
+contributes probability mass
+
+records which signal fired
+
+never overrides blindly
+
+Final output:
+
+struct Inference {
+    role: Role,
+    confidence: f32,
+    signals: Vec<Signal>,
+}
+
+
+This keeps it:
+
+explainable
+
+tunable
+
+testable
+
+6. Aggregation stage (where insight emerges)
+
+From Vec<FileRecord> compute:
+
+responsibility totals
+
+ratios
+
+churn × size
+
+bus factor
+
+hot files
+
+infra vs prod deltas
+
+trends (if history available)
+
+These are pure reductions → easy unit tests.
+
+7. Renderer contract (very important)
+
+Define a single trait:
+
+pub trait Renderer {
+    fn render(&self, report: &Report) -> anyhow::Result<()>;
+}
+
+
+Where Report is your JSON schema as a Rust struct.
+
+TUI renderer
+
+Uses unicode-width, ansi_term or owo-colors
+
+Applies semantic color tokens, not raw colors
+
+Enforces rules:
+
+numbers uncolored
+
+one semantic color per line
+
+bars are neutral
+
+Web renderer
+
+Emits semantic HTML + CSS vars
+
+Same layout as TUI
+
+Screenshot-friendly by default
+
+8. Semantic color tokens (Rust-native)
+pub enum SemanticColor {
+    Primary,
+    Safety,
+    Operational,
+    Knowledge,
+    Fragility,
+    LowEmphasis,
+    External,
+    Warning,
+}
+
+
+Role → color mapping lives in one place:
+
+impl Role {
+    pub fn color(&self) -> SemanticColor {
+        match self {
+            Role::Prod => SemanticColor::Primary,
+            Role::Test(_) => SemanticColor::Safety,
+            Role::Infra => SemanticColor::Operational,
+            Role::Docs => SemanticColor::Knowledge,
+            Role::Config => SemanticColor::Fragility,
+            Role::Generated => SemanticColor::LowEmphasis,
+            Role::Vendor => SemanticColor::External,
+            Role::Deprecated => SemanticColor::Warning,
+            _ => SemanticColor::Primary,
+        }
+    }
+}
+
+
+Renderers decide how to show it.
+
+9. CLI UX (Tufte-aligned)
+
+Keep flags conceptual, not technical:
+
+semantic-loc
+semantic-loc --by role
+semantic-loc --by language
+semantic-loc --risk
+semantic-loc --trend 12m
+semantic-loc --format json
+
+
+No flags like --count-comments.
+That’s an implementation detail.
+
+10. What makes this feel magical
+
+Two things:
+
+1. Confidence disclosure
+
+Users trust tools that admit uncertainty.
+
+Classification confidence: high (92% automatic)
+
+2. Narrative diffs
+
+Running:
+
+semantic-loc --diff HEAD~30
+
+
+Yields:
+
+infra +18%
+
+test/prod −0.06
+
+bus factor warning: billing/
+
+new public API surface
+
+That’s real insight.
+
+11. Why Rust is the right call
+
+Fast enough to scan monorepos
+
+Deterministic (CI-safe)
+
+Strong enums for semantics
+
+Single binary distribution
+
+Easy WASM/Web reuse later
+
+This would feel like ripgrep + tokei + architectural intuition.
