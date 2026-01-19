@@ -1,0 +1,237 @@
+You’re thinking about this exactly the Tufte way already, so let’s be precise and disciplined.
+
+Below is a real, non-hand-wavy design for a Tufte-style output: structure, visual cues, semantic color meaning, and why each element earns its ink.
+
+1. First principle (Tufte lens)
+
+Show comparisons, not decoration.
+Encode meaning in position, density, and proximity.
+Color is annotation, not ornament.
+
+So this is not:
+
+charts for charts’ sake
+
+rainbow tables
+
+dashboards
+
+This is:
+
+calm, dense summaries
+
+marginal notes
+
+ratios that tell stories
+
+structure doing most of the work
+
+2. The primary structure (what replaces the big table)
+Instead of a language table → a Responsibility Ledger
+Codebase Summary
+────────────────────────────────────────────────────────────
+Total files: 493        Total LOC: 126k        Languages: 7
+
+Responsibility Breakdown (LOC)
+────────────────────────────────────────────────────────────
+prod        ████████████████████████ 62.1k
+test        ████████████             29.4k
+infra       ██████                   14.2k
+docs        ████                     11.5k
+config      ██                        6.1k
+generated   █                         2.7k
+
+
+Why this is Tufte-correct
+
+No axes
+
+No legend
+
+Bars are aligned to meaningful categories
+
+Exact numbers are printed (no estimation required)
+
+This answers the first real question:
+
+“What kind of work is this repo made of?”
+
+3. Secondary structure: ratios (the real insight)
+
+Immediately follow with ratios, not more counts.
+
+Key Ratios
+────────────────────────────────────────────────────────────
+Test / Prod           0.47    (healthy baseline ≈ 0.5–0.8)
+Infra / Prod          0.23    (rising operational complexity)
+Docs / Prod           0.18    (well-documented)
+Generated / Prod      0.04    (low automation reliance)
+
+
+Why this matters
+
+Humans reason in ratios
+
+Ratios survive repo growth
+
+Ratios tell stories over time
+
+No visualization beats a clean number with context.
+
+4. Tertiary structure: small multiples (by language)
+
+This is where you earn density.
+
+Language Composition by Responsibility
+────────────────────────────────────────────────────────────
+Go        prod ████████████████ 49.2k   test ████████ 18.9k
+MDX       docs ████████████     11.1k
+Shell     infra ████████         9.4k
+YAML      infra ██████           6.8k
+
+
+Rules:
+
+No totals repeated
+
+Only roles that matter per language
+
+Silence where irrelevant
+
+This avoids the classic mistake: showing empty categories.
+
+5. Semantic color: what it means (and what it must not do)
+Semantic colors are role markers, not row highlights.
+
+They answer:
+
+“What responsibility am I looking at?”
+
+They do not:
+
+differentiate languages
+
+decorate tables
+
+compete with text
+
+Proposed semantic palette (terminal-safe, low saturation)
+Role	Intent	Color behavior
+prod	Core value	default foreground
+test	Safety	muted green / blue
+infra	Operational risk	amber / copper
+docs	Knowledge	soft gray
+config	Fragility	gray-blue
+generated	Low ownership	faint gray
+deprecated	Risk	desaturated red
+
+Important:
+Color should only appear on labels, never on numbers.
+
+Bad:
+
+███████ 49.2k  (green)
+
+
+Good:
+
+test ████████ 18.9k
+
+
+Text carries the meaning; color whispers it.
+
+6. Marginalia (this is very Tufte)
+
+Use side annotations, not banners.
+
+infra ██████ 14.2k
+        ↑ 42% of infra LOC is CI/CD
+
+
+Or:
+
+test ████████████ 29.4k
+     note: 81% unit, 11% integration, 8% e2e
+
+
+These are:
+
+optional
+
+precise
+
+non-interrupting
+
+They reward close reading without demanding it.
+
+7. Sparklines (only where time exists)
+
+If you have history, add one line:
+
+Test / Prod Ratio (last 12 months)
+▁▂▃▄▆▆▇▇▆▆▇▇
+
+
+Rules:
+
+No axes
+
+No legend
+
+Label once: “upward trend since Q2”
+
+This answers:
+
+“Are we improving, drifting, or decaying?”
+
+8. File-level cues (micro-insight, zero clutter)
+
+When drilling into a directory or file list:
+
+auth/
+  login.go              412   prod
+  login_test.go         688   test
+  jwt.go                931   prod   ⚠ hot path
+  mock_identity.go      201   test:fixture
+
+
+Only one icon max, only when meaningful.
+
+No emojis.
+No rainbows.
+No dashboards.
+
+9. What this deliberately avoids (important)
+
+A Tufte-correct design does not:
+
+show pie charts
+
+use stacked bars without numbers
+
+repeat totals
+
+encode meaning solely in color
+
+force legends
+
+If a legend is required, the design failed.
+
+10. The meta-insight
+
+What you’re really building is:
+
+A calm narrative about responsibility, risk, and maturity.
+
+Not:
+
+“How big is this repo?”
+But:
+
+“What kind of work dominates?”
+
+“Where does risk accumulate?”
+
+“Is investment balanced?”
+
+That’s why this feels missing in existing tools—they optimize for measurement, not understanding.

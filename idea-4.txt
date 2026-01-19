@@ -1,0 +1,242 @@
+Turn this into a terminal wireframe spec
+
+Love it. Below is a concrete, build-ready terminal wireframe spec—not prose, not vibes. This is something you could hand to an implementer (or an agent) and get a consistent, beautiful result.
+
+I’ll treat this like a TUI layout contract, with strict rules, spacing, semantics, and color behavior.
+
+Semantic Codebase Summary
+
+Terminal Wireframe Specification v0.1
+
+0. Global Design Rules (non-negotiable)
+
+Typography & Layout
+
+Monospaced terminal font
+
+Fixed-width columns
+
+Unicode box drawing allowed (light weight only)
+
+Left-aligned text; numbers right-aligned
+
+Whitespace is primary structure (no heavy borders)
+
+Color
+
+Color applies only to labels, never to numeric values
+
+One semantic color per line maximum
+
+No background colors
+
+No legends required
+
+Icons
+
+Optional, ASCII-safe
+
+At most one symbol per line
+
+Only when meaning is non-obvious
+
+1. Header Block (Context & Scale)
+Codebase Summary
+────────────────────────────────────────────────────────────
+Files: 493          LOC: 126,433          Languages: 7
+
+
+Rules
+
+Exactly 3 metrics
+
+Fixed order: Files → LOC → Languages
+
+No color
+
+This block never changes height
+
+2. Primary Block: Responsibility Ledger (Core Insight)
+Responsibility Breakdown (LOC)
+────────────────────────────────────────────────────────────
+prod        ████████████████████████ 62.1k
+test        ████████████             29.4k
+infra       ██████                   14.2k
+docs        ████                     11.5k
+config      ██                        6.1k
+generated   █                         2.7k
+
+
+Structure
+
+Left column: semantic role label (fixed width)
+
+Middle: bar (relative scale within section)
+
+Right: absolute value (always shown)
+
+Bar Rules
+
+Bars are monochrome
+
+Bars encode relative magnitude only
+
+Bars do not encode semantics (labels do)
+
+Semantic Color
+
+Apply color to role label only:
+
+prod → default foreground
+
+test → muted green/blue
+
+infra → amber/copper
+
+docs → soft gray
+
+config → gray-blue
+
+generated → faint gray
+
+3. Secondary Block: Key Ratios (Interpretation)
+Key Ratios
+────────────────────────────────────────────────────────────
+Test / Prod           0.47    healthy baseline ≈ 0.5–0.8
+Infra / Prod          0.23    operational complexity
+Docs / Prod           0.18    well documented
+Generated / Prod      0.04    low automation reliance
+
+
+Rules
+
+Ratios sorted by importance, not magnitude
+
+Values printed with two decimals
+
+Commentary is plain text, no color
+
+No bars, no charts
+
+This section exists to replace mental math.
+
+4. Tertiary Block: Language × Responsibility (Small Multiples)
+Language Composition
+────────────────────────────────────────────────────────────
+Go        prod ████████████████ 49.2k   test ████████ 18.9k
+MDX       docs ████████████     11.1k
+Shell     infra ████████         9.4k
+YAML      infra ██████           6.8k
+
+
+Rules
+
+One line per language
+
+Only show dominant responsibilities
+
+Never show zero or trivial categories
+
+Semantic color applies to responsibility label only
+
+This section answers:
+
+“What kind of work does each language do here?”
+
+5. Marginal Notes (Optional, Sparse)
+
+Marginal notes appear only when signal exists.
+
+infra ██████ 14.2k
+        ↑ 42% CI/CD definitions
+
+
+Rules
+
+Indented under the relevant line
+
+One note max per item
+
+No color
+
+No repetition of numbers
+
+6. Temporal Cue (Optional Sparkline)
+
+Only rendered if historical data exists.
+
+Test / Prod Trend (12 months)
+▁▂▃▄▆▆▇▇▆▆▇▇   upward since Q2
+
+
+Rules
+
+Single sparkline per report
+
+No axes, no labels
+
+One textual interpretation allowed
+
+7. Directory / File Drilldown (Scoped View)
+auth/
+────────────────────────────────────────────────────────────
+login.go              412   prod
+login_test.go         688   test
+jwt.go                931   prod   ⚠ hot path
+mock_identity.go      201   test:fixture
+
+
+Rules
+
+Sorted by semantic role, then size
+
+Size always right-aligned
+
+Optional symbol only when noteworthy (⚠ = hot path)
+
+Semantic color only on role label
+
+8. Confidence Disclosure (Footer, Optional)
+
+If inference is probabilistic:
+
+Classification confidence: high (92% auto, 8% heuristic)
+
+
+Rules
+
+Plain text
+
+No color
+
+Always last
+
+9. What Is Explicitly Forbidden
+
+Pie charts
+
+Stacked bars
+
+Legends
+
+Background colors
+
+Emojis
+
+Percentages without absolute values
+
+Color-only meaning
+
+Repeated totals
+
+10. Output Contract Summary (for implementers)
+
+Sections are optional but ordered
+
+Each section is independently renderable
+
+Terminal width target: 80–100 columns
+
+Graceful degradation to ASCII-only terminals
+
+Machine-readable JSON should map 1:1 to this layout

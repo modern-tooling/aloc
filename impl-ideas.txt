@@ -1,0 +1,340 @@
+High-level pipeline
+Walk (paths) → Filter → Read+Scan (workers) → Aggregate → Render (streaming)
+
+
+Key idea: stream everything, keep allocations flat, and avoid per-line/per-token heap churn.
+
+Core components
+1) Walker: fast path enumeration (single producer)
+
+Use filepath.WalkDir (or a custom iterative walker if you need finer control).
+
+Emit candidate file paths onto a buffered channel.
+
+Do cheap filtering here (dir ignores, extension allow/deny, size caps).
+
+Must-have: ignore rules compiled once:
+
+.gitignore (optional)
+
+hard ignores: .git/, node_modules/, vendor/, dist/, target/, etc.
+
+Shape:
+
+walk(ctx) -> chan FileTask{path, d_type?, size?}
+
+2) Work scheduler: bounded queue + worker pool
+
+Channel size matters. Too small = walker stalls. Too large = memory spikes.
+
+Good starting point: pathsCh := make(chan FileTask, 8192).
+
+Worker count:
+
+For SSD + lots of small files: workers = min(32, 4*GOMAXPROCS)
+
+For fewer large files: closer to 2*GOMAXPROCS
+
+3) Reader+Scanner workers: hot path (optimized)
+
+Each worker:
+
+Opens file
+
+Reads via bufio.Reader with a reused buffer
+
+Scans bytes and counts:
+
+lines
+
+bytes
+
+blanks/comments (if heuristic)
+
+maybe lightweight language detection (by extension, shebang)
+
+Emits a small Result struct
+
+Do NOT use bufio.Scanner for huge lines unless you increase buffer; it’s also slower due to tokenization overhead. Prefer Reader.ReadSlice('\n') or ReadBytes('\n') with reuse.
+
+Avoid per-line string conversions.
+
+4) Aggregator: single goroutine, no locks
+
+One goroutine reads resultsCh and merges into maps/counters.
+
+This avoids contention and keeps CPU caches happy.
+
+If you need per-language maps: use integer IDs instead of strings in hot path.
+
+5) Renderer: streaming & “progressive delight”
+
+Renderer subscribes to aggregator updates via:
+
+periodic snapshots (every 100ms)
+
+or progress counters (atomic)
+
+Final output rendered from aggregator’s final model.
+
+Keep render completely separate so you can support:
+
+TUI
+
+JSON
+
+Markdown
+
+HTML
+
+Performance-critical tricks (the “near-Rust” part)
+A) Allocation discipline
+
+Never build []string lines.
+
+Never string(b) unless you must.
+
+Reuse big buffers with sync.Pool.
+
+Example:
+
+[]byte read buffer pool
+
+*bufio.Reader pool if you want (optional)
+
+B) Metadata reduction
+
+Stat calls are expensive at scale.
+
+Prefer WalkDir which gives DirEntry without extra stat when possible.
+
+Only call Info() when you actually need size/time.
+
+C) Fast filtering
+
+Do ignore checks before open:
+
+directory ignores early
+
+extension allowlist (fast map lookup)
+
+file size caps (skip huge binaries)
+
+D) I/O parallelism tuned for SSD
+
+Too many open files kills performance.
+
+Keep worker count bounded.
+
+Optionally add a semaphore on open files (e.g. max 256).
+
+E) Optional: two-tier pipeline (for language detection)
+
+If language detection is more expensive:
+
+Tier 1: cheap detection (extension)
+
+Tier 2: only for “unknown”: peek first 4–8KB for shebang / heuristics
+
+Concrete skeleton (minimal, but real)
+type FileTask struct {
+    Path string
+    // Optional: ExtID, Size, Mode hints if you capture them in walker
+}
+
+type Result struct {
+    Path   string
+    LangID uint16
+    Bytes  int64
+    Lines  int64
+    Blanks int64
+    // Comments etc
+    Err error
+}
+
+type Aggregates struct {
+    TotalBytes int64
+    TotalLines int64
+    ByLang     []LangAgg // indexed by LangID
+}
+
+type LangAgg struct {
+    Bytes int64
+    Lines int64
+    Files int64
+}
+
+Orchestrator
+func Run(ctx context.Context, root string, cfg Config) (*Aggregates, error) {
+    pathsCh := make(chan FileTask, 8192)
+    resultsCh := make(chan Result, 8192)
+
+    // 1) walker
+    go func() {
+        defer close(pathsCh)
+        walk(ctx, root, cfg, pathsCh)
+    }()
+
+    // 2) workers
+    var wg sync.WaitGroup
+    workers := cfg.Workers()
+    wg.Add(workers)
+    for i := 0; i < workers; i++ {
+        go func() {
+            defer wg.Done()
+            worker(ctx, cfg, pathsCh, resultsCh)
+        }()
+    }
+
+    // 3) closer
+    go func() {
+        wg.Wait()
+        close(resultsCh)
+    }()
+
+    // 4) aggregate (single goroutine)
+    aggs := newAggregates(cfg)
+    for r := range resultsCh {
+        if r.Err != nil {
+            // handle or count errors; don't spam logs
+            continue
+        }
+        merge(aggs, r)
+    }
+    return aggs, nil
+}
+
+Worker with pooled buffers + fast line counting
+var bufPool = sync.Pool{
+    New: func() any {
+        b := make([]byte, 256*1024) // 256KB typical sweet spot
+        return &b
+    },
+}
+
+func worker(ctx context.Context, cfg Config, in <-chan FileTask, out chan<- Result) {
+    for task := range in {
+        select {
+        case <-ctx.Done():
+            return
+        default:
+        }
+
+        r := scanFile(cfg, task.Path)
+        out <- r
+    }
+}
+
+func scanFile(cfg Config, path string) Result {
+    // detect lang cheaply (extension)
+    langID := cfg.LangResolver.Resolve(path)
+
+    f, err := os.Open(path)
+    if err != nil {
+        return Result{Path: path, LangID: langID, Err: err}
+    }
+    defer f.Close()
+
+    // pooled buffer
+    bp := bufPool.Get().(*[]byte)
+    buf := *bp
+    defer bufPool.Put(bp)
+
+    // buffered reader; use your own reader to avoid allocations
+    br := bufio.NewReaderSize(f, 256*1024)
+
+    var bytes, lines int64
+    // byte-level newline counting; avoids per-line allocations
+    for {
+        n, err := br.Read(buf)
+        if n > 0 {
+            bytes += int64(n)
+            lines += int64(bytesCountNewlines(buf[:n]))
+        }
+        if err != nil {
+            if err == io.EOF {
+                break
+            }
+            return Result{Path: path, LangID: langID, Err: err}
+        }
+    }
+
+    return Result{
+        Path:   path,
+        LangID: langID,
+        Bytes:  bytes,
+        Lines:  lines,
+    }
+}
+
+func bytesCountNewlines(b []byte) int {
+    c := 0
+    for _, x := range b {
+        if x == '\n' {
+            c++
+        }
+    }
+    return c
+}
+
+
+That simple newline counter is shockingly fast in Go when optimized by the compiler; you can also SIMD this later, but often you don’t need to.
+
+Aggregator (single goroutine, no locks)
+func merge(a *Aggregates, r Result) {
+    a.TotalBytes += r.Bytes
+    a.TotalLines += r.Lines
+
+    la := &a.ByLang[r.LangID]
+    la.Bytes += r.Bytes
+    la.Lines += r.Lines
+    la.Files++
+}
+
+Options to push it even further (if needed)
+
+mmap for large files
+Often not worth it for many small files; helps for fewer large ones.
+
+io_uring / async I/O
+Go doesn’t give you easy access here; diminishing returns unless extreme.
+
+Special casing “binary” detection
+Early skip if NUL byte appears in first chunk.
+
+Shard aggregators
+If you truly max CPU, you can do per-worker partial aggregates and merge at end. Usually unnecessary; single aggregator is fast.
+
+Tuning defaults that usually “feel Rusty”
+
+GOMAXPROCS: leave default (Go sets to CPU count); only tune if inside containers.
+
+workers: min(32, 4*GOMAXPROCS)
+
+bufio.ReaderSize: 256KB
+
+pathsCh/resultsCh: 8k–32k buffered
+
+Use pprof early; you want to see:
+
+syscalls (openat, stat)
+
+allocations
+
+time in ignore matching / regex
+
+UX integration (beautiful output without slowing scan)
+
+Aggregator maintains:
+
+atomic.Int64 filesDone, bytesDone
+
+Renderer goroutine ticks every 100ms:
+
+reads atomics
+
+renders progress / sparklines
+
+Final render uses the aggregated model
+
+This keeps the hot path clean and gives delightful progress.
