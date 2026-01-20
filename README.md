@@ -7,13 +7,13 @@ Semantic LOC counter that classifies code by role (core, test, docs, infra) with
 ## Installation
 
 ```bash
-go install github.com/rgehrsern/aloc/cmd/aloc@latest
+go install github.com/modern-tooling/aloc/cmd/aloc@latest
 ```
 
 Or build from source:
 
 ```bash
-git clone https://github.com/rgehrsern/aloc.git
+git clone https://github.com/modern-tooling/aloc.git
 cd aloc
 go build -o aloc ./cmd/aloc
 ```
