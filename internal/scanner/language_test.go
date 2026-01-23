@@ -9,9 +9,9 @@ func TestDetectLanguage_Extensions(t *testing.T) {
 	}{
 		{"main.go", "Go"},
 		{"app.ts", "TypeScript"},
-		{"app.tsx", "TypeScript"},
+		{"app.tsx", "TSX"},
 		{"script.js", "JavaScript"},
-		{"script.jsx", "JavaScript"},
+		{"script.jsx", "JSX"},
 		{"main.py", "Python"},
 		{"lib.rs", "Rust"},
 		{"App.java", "Java"},
@@ -29,11 +29,11 @@ func TestDetectLanguage_Extensions(t *testing.T) {
 		{"config.toml", "TOML"},
 		{"README.md", "Markdown"},
 		{"query.sql", "SQL"},
-		{"main.tf", "Terraform"},
+		{"main.tf", "HCL"},
 		{"service.proto", "Protocol Buffers"},
 		{"index.html", "HTML"},
 		{"style.css", "CSS"},
-		{"style.scss", "SCSS"},
+		{"style.scss", "Sass"},
 		{"unknown.xyz", "unknown"},
 	}
 
@@ -53,8 +53,8 @@ func TestDetectLanguage_SpecialFiles(t *testing.T) {
 		{"Dockerfile", "Dockerfile"},
 		{"Makefile", "Makefile"},
 		{"GNUmakefile", "Makefile"},
-		{"Gemfile", "Ruby"},
-		{"Rakefile", "Ruby"},
+		{"Rakefile", "Rakefile"},
+		{"justfile", "Just"},
 	}
 
 	for _, tt := range tests {

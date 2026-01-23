@@ -22,68 +22,22 @@ var CategoryOrder = []LanguageCategory{
 	CategoryOther,
 }
 
-// langToCategory maps language names to their categories
-var langToCategory = map[string]LanguageCategory{
-	// Primary - general purpose programming languages
-	"Go":               CategoryPrimary,
-	"TypeScript":       CategoryPrimary,
-	"JavaScript":       CategoryPrimary,
-	"Python":           CategoryPrimary,
-	"Rust":             CategoryPrimary,
-	"Java":             CategoryPrimary,
-	"Kotlin":           CategoryPrimary,
-	"Swift":            CategoryPrimary,
-	"C":                CategoryPrimary,
-	"C++":              CategoryPrimary,
-	"C#":               CategoryPrimary,
-	"Ruby":             CategoryPrimary,
-	"PHP":              CategoryPrimary,
-	"Scala":            CategoryPrimary,
-	"Haskell":          CategoryPrimary,
-	"Elixir":           CategoryPrimary,
-	"Erlang":           CategoryPrimary,
-	"Clojure":          CategoryPrimary,
-	"Dart":             CategoryPrimary,
-	"Groovy":           CategoryPrimary,
-	"Lua":              CategoryPrimary,
-	"Perl":             CategoryPrimary,
-	"R":                CategoryPrimary,
-	"Shell":            CategoryPrimary,
-
-	// Web - frontend and styling
-	"HTML":             CategoryWeb,
-	"CSS":              CategoryWeb,
-	"SCSS":             CategoryWeb,
-	"SASS":             CategoryWeb,
-	"LESS":             CategoryWeb,
-	"Vue":              CategoryWeb,
-	"Svelte":           CategoryWeb,
-	"MDX":              CategoryWeb,
-
-	// Infrastructure - DevOps and IaC
-	"Terraform":        CategoryInfra,
-	"Makefile":         CategoryInfra,
-	"Just":             CategoryInfra,
-	"HCL":              CategoryInfra,
-	"Dockerfile":       CategoryInfra,
-	"Protocol Buffers": CategoryInfra,
-
-	// Data & Config - serialization and configuration
-	"JSON":             CategoryData,
-	"YAML":             CategoryData,
-	"TOML":             CategoryData,
-	"XML":              CategoryData,
-	"SQL":              CategoryData,
-
-	// Documentation - markup languages
-	"Markdown":         CategoryMarkup,
-	"Plain Text":       CategoryMarkup,
+// categoryFromString converts a JSON category string to LanguageCategory
+var categoryFromString = map[string]LanguageCategory{
+	"primary": CategoryPrimary,
+	"web":     CategoryWeb,
+	"infra":   CategoryInfra,
+	"data":    CategoryData,
+	"docs":    CategoryMarkup,
+	"other":   CategoryOther,
 }
 
 // GetLanguageCategory returns the category for a language
 func GetLanguageCategory(language string) LanguageCategory {
-	if cat, ok := langToCategory[language]; ok {
-		return cat
+	if cfg, ok := GetLanguageConfig(language); ok && cfg.Category != "" {
+		if cat, ok := categoryFromString[cfg.Category]; ok {
+			return cat
+		}
 	}
 	return CategoryOther
 }

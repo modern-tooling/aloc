@@ -160,39 +160,29 @@ func countLOCFromReader(f *os.File, lang string, bufPtr *[]byte) int {
 }
 
 func getLineCommentMarker(lang string) string {
-	switch lang {
-	case "Go", "TypeScript", "JavaScript", "Java", "C", "C++", "Rust", "Swift", "Kotlin", "Scala", "C#", "PHP", "Dart", "Groovy":
-		return "//"
-	case "Python", "Shell", "YAML", "Ruby", "Perl", "R", "Makefile", "Dockerfile", "Just", "TOML":
-		return "#"
-	case "SQL", "Lua", "Haskell":
-		return "--"
-	case "Lisp", "Clojure", "Scheme":
-		return ";"
-	case "Plain Text":
-		return "" // no comments in plain text
-	default:
-		return "//"
+	if cfg, ok := GetLanguageConfig(lang); ok {
+		if cfg.Blank {
+			return "" // language doesn't support comments
+		}
+		if len(cfg.LineComment) > 0 {
+			return cfg.LineComment[0]
+		}
 	}
+	// fallback for unknown languages
+	return "//"
 }
 
 func getBlockCommentMarkers(lang string) (string, string) {
-	switch lang {
-	case "Go", "TypeScript", "JavaScript", "Java", "C", "C++", "Rust", "Swift", "Kotlin", "Scala", "CSS", "SQL", "C#", "PHP", "Dart", "Groovy", "SCSS", "SASS", "LESS":
-		return "/*", "*/"
-	case "HTML", "XML", "Markdown", "MDX", "Vue", "Svelte":
-		return "<!--", "-->"
-	case "Python":
-		return `"""`, `"""`
-	case "Shell", "Makefile", "Dockerfile", "Just", "TOML", "YAML", "Ruby", "Perl", "R", "Plain Text":
-		return "", "" // no block comments
-	case "Lua":
-		return "--[[", "]]"
-	case "Haskell":
-		return "{-", "-}"
-	default:
-		return "/*", "*/"
+	if cfg, ok := GetLanguageConfig(lang); ok {
+		if cfg.Blank || len(cfg.MultiLineComments) == 0 {
+			return "", "" // no block comments
+		}
+		if len(cfg.MultiLineComments[0]) == 2 {
+			return cfg.MultiLineComments[0][0], cfg.MultiLineComments[0][1]
+		}
 	}
+	// fallback for unknown languages
+	return "/*", "*/"
 }
 
 func detectLangFromPath(path string) string {
@@ -311,71 +301,30 @@ func countMarkdownWithEmbedded(f *os.File, bufPtr *[]byte) (model.LineMetrics, m
 
 // normalizeCodeBlockLang converts code fence language hints to canonical names
 func normalizeCodeBlockLang(hint string) string {
-	// Remove common suffixes/annotations
+	// remove common suffixes/annotations
 	hint = strings.Split(hint, " ")[0] // "typescript jsx" -> "typescript"
 	hint = strings.Trim(hint, "`")     // remove any stray backticks
+
+	if hint == "" {
+		return ""
+	}
+
 	hint = strings.ToLower(hint)
 
-	switch hint {
-	case "ts", "typescript":
-		return "TypeScript"
-	case "tsx":
-		return "TypeScript" // TSX grouped with TypeScript
-	case "js", "javascript":
-		return "JavaScript"
-	case "jsx":
-		return "JavaScript"
-	case "py", "python", "python3":
-		return "Python"
-	case "go", "golang":
-		return "Go"
-	case "rb", "ruby":
-		return "Ruby"
-	case "sh", "bash", "shell", "zsh":
-		return "Shell"
-	case "yml", "yaml":
-		return "YAML"
-	case "json", "jsonc":
-		return "JSON"
-	case "sql":
-		return "SQL"
-	case "html":
-		return "HTML"
-	case "css":
-		return "CSS"
-	case "scss":
-		return "SCSS"
-	case "dockerfile":
-		return "Dockerfile"
-	case "tf", "terraform", "hcl":
-		return "Terraform"
-	case "rs", "rust":
-		return "Rust"
-	case "java":
-		return "Java"
-	case "c":
-		return "C"
-	case "cpp", "c++", "cxx":
-		return "C++"
-	case "cs", "csharp":
-		return "C#"
-	case "md", "markdown":
-		return "Markdown"
-	case "xml":
-		return "XML"
-	case "toml":
-		return "TOML"
-	case "makefile", "make":
-		return "Makefile"
-	case "":
-		return "" // no language specified
-	default:
-		// Capitalize first letter for unknown languages
-		if len(hint) > 0 {
-			return strings.ToUpper(hint[:1]) + hint[1:]
-		}
-		return hint
+	// try extension-to-language map first (handles ts, py, rs, etc.)
+	if lang := extToLanguage(hint); lang != "unknown" {
+		return lang
 	}
+
+	// try matching language name case-insensitively
+	for name := range languages {
+		if strings.EqualFold(hint, name) {
+			return name
+		}
+	}
+
+	// capitalize first letter for unknown languages
+	return strings.ToUpper(hint[:1]) + hint[1:]
 }
 
 // countCodeBlockLines counts lines within a code block using language-specific rules

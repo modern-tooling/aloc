@@ -2,119 +2,128 @@ package scanner
 
 import (
 	"bufio"
+	_ "embed"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
-var extToLang = map[string]string{
-	"go":     "Go",
-	"ts":     "TypeScript",
-	"tsx":    "TypeScript",
-	"js":     "JavaScript",
-	"jsx":    "JavaScript",
-	"mjs":    "JavaScript",
-	"cjs":    "JavaScript",
-	"py":     "Python",
-	"pyw":    "Python",
-	"rs":     "Rust",
-	"java":   "Java",
-	"kt":     "Kotlin",
-	"kts":    "Kotlin",
-	"swift":  "Swift",
-	"rb":     "Ruby",
-	"c":      "C",
-	"h":      "C",
-	"cpp":    "C++",
-	"cc":     "C++",
-	"cxx":    "C++",
-	"hpp":    "C++",
-	"hxx":    "C++",
-	"cs":     "C#",
-	"sh":     "Shell",
-	"bash":   "Shell",
-	"zsh":    "Shell",
-	"fish":   "Shell",
-	"yaml":   "YAML",
-	"yml":    "YAML",
-	"json":   "JSON",
-	"toml":   "TOML",
-	"md":     "Markdown",
-	"mdx":    "MDX",
-	"sql":    "SQL",
-	"tf":     "Terraform",
-	"tfvars": "Terraform",
-	"hcl":    "HCL",
-	"proto":  "Protocol Buffers",
-	"html":   "HTML",
-	"htm":    "HTML",
-	"css":    "CSS",
-	"scss":   "SCSS",
-	"sass":   "SASS",
-	"less":   "LESS",
-	"xml":    "XML",
-	"vue":    "Vue",
-	"svelte": "Svelte",
-	"php":    "PHP",
-	"pl":     "Perl",
-	"pm":     "Perl",
-	"r":      "R",
-	"lua":    "Lua",
-	"ex":     "Elixir",
-	"exs":    "Elixir",
-	"erl":    "Erlang",
-	"hrl":    "Erlang",
-	"hs":     "Haskell",
-	"scala":  "Scala",
-	"clj":    "Clojure",
-	"cljs":   "Clojure",
-	"dart":   "Dart",
-	"groovy": "Groovy",
-	"gradle": "Groovy",
-	"txt":    "Plain Text",
-	"text":   "Plain Text",
+//go:embed languages.json
+var languagesJSON []byte
+
+// LanguageConfig represents a language definition from languages.json
+type LanguageConfig struct {
+	Name              string     `json:"name"`
+	LineComment       []string   `json:"line_comment"`
+	MultiLineComments [][]string `json:"multi_line_comments"`
+	Extensions        []string   `json:"extensions"`
+	Filenames         []string   `json:"filenames"`
+	Shebangs          []string   `json:"shebangs"`
+	Env               []string   `json:"env"`
+	Nested            bool       `json:"nested"`
+	Blank             bool       `json:"blank"`
+	Literate          bool       `json:"literate"`
+	Category          string     `json:"category"`
 }
 
-var shebangToLang = map[string]string{
-	"python":  "Python",
-	"python3": "Python",
-	"node":    "JavaScript",
-	"bash":    "Shell",
-	"sh":      "Shell",
-	"zsh":     "Shell",
-	"ruby":    "Ruby",
-	"perl":    "Perl",
-	"php":     "PHP",
+// LanguagesFile represents the top-level JSON structure
+type LanguagesFile struct {
+	Languages map[string]LanguageConfig `json:"languages"`
 }
 
+var (
+	// extToLang maps file extensions to language IDs
+	extToLang map[string]string
+	// filenameToLang maps special filenames to language IDs
+	filenameToLang map[string]string
+	// shebangToLang maps interpreter names to language IDs
+	shebangToLang map[string]string
+	// languages holds the full config for each language
+	languages map[string]LanguageConfig
+)
+
+func init() {
+	var lf LanguagesFile
+	if err := json.Unmarshal(languagesJSON, &lf); err != nil {
+		panic("failed to parse languages.json: " + err.Error())
+	}
+
+	extToLang = make(map[string]string)
+	filenameToLang = make(map[string]string)
+	shebangToLang = make(map[string]string)
+	languages = make(map[string]LanguageConfig)
+
+	for id, cfg := range lf.Languages {
+		// use display name if set, otherwise use the ID
+		displayName := cfg.Name
+		if displayName == "" {
+			displayName = id
+		}
+		cfg.Name = displayName
+		languages[displayName] = cfg
+
+		// map extensions to language
+		for _, ext := range cfg.Extensions {
+			extToLang[ext] = displayName
+		}
+
+		// map special filenames to language
+		for _, fname := range cfg.Filenames {
+			filenameToLang[strings.ToLower(fname)] = displayName
+		}
+
+		// map shebang interpreters to language
+		for _, env := range cfg.Env {
+			shebangToLang[env] = displayName
+		}
+
+		// parse full shebang patterns for direct matches
+		for _, shebang := range cfg.Shebangs {
+			// extract interpreter from shebang like "#!/bin/bash" or "#!/usr/bin/env python"
+			interpreter := extractInterpreter(shebang)
+			if interpreter != "" {
+				shebangToLang[interpreter] = displayName
+			}
+		}
+	}
+}
+
+// extractInterpreter extracts the interpreter name from a shebang line
+func extractInterpreter(shebang string) string {
+	shebang = strings.TrimPrefix(shebang, "#!")
+	shebang = strings.TrimSpace(shebang)
+
+	// handle /usr/bin/env style
+	if strings.Contains(shebang, "env ") {
+		parts := strings.Fields(shebang)
+		if len(parts) >= 2 {
+			return parts[len(parts)-1]
+		}
+	}
+
+	return filepath.Base(shebang)
+}
+
+// DetectLanguage detects the programming language from a file path
 func DetectLanguage(path string) string {
+	// check special filenames first
+	base := filepath.Base(path)
+	if lang, ok := filenameToLang[strings.ToLower(base)]; ok {
+		return lang
+	}
+
+	// check extension
 	ext := strings.ToLower(strings.TrimPrefix(filepath.Ext(path), "."))
 	if lang, ok := extToLang[ext]; ok {
 		return lang
 	}
 
-	// Check shebang for files without extension
+	// check shebang for files without extension
 	if ext == "" || filepath.Ext(path) == "" {
 		if lang := detectFromShebang(path); lang != "" {
 			return lang
 		}
-	}
-
-	// Special filenames
-	base := filepath.Base(path)
-	switch strings.ToLower(base) {
-	case "dockerfile":
-		return "Dockerfile"
-	case "makefile", "gnumakefile":
-		return "Makefile"
-	case "cakefile":
-		return "CoffeeScript"
-	case "gemfile", "rakefile":
-		return "Ruby"
-	case "justfile":
-		return "Just"
-	case "taskfile.yml", "taskfile.yaml":
-		return "YAML"
 	}
 
 	return "unknown"
@@ -134,7 +143,7 @@ func detectFromShebang(path string) string {
 			shebang := strings.TrimPrefix(line, "#!")
 			shebang = strings.TrimSpace(shebang)
 
-			// Handle /usr/bin/env
+			// handle /usr/bin/env
 			if strings.Contains(shebang, "env ") {
 				parts := strings.Fields(shebang)
 				if len(parts) >= 2 {
@@ -142,7 +151,7 @@ func detectFromShebang(path string) string {
 				}
 			}
 
-			// Extract interpreter name
+			// extract interpreter name
 			shebang = filepath.Base(shebang)
 			if lang, ok := shebangToLang[shebang]; ok {
 				return lang
@@ -157,4 +166,15 @@ func extToLanguage(ext string) string {
 		return lang
 	}
 	return "unknown"
+}
+
+// GetLanguageConfig returns the configuration for a language
+func GetLanguageConfig(lang string) (LanguageConfig, bool) {
+	cfg, ok := languages[lang]
+	return cfg, ok
+}
+
+// GetAllLanguages returns all language configurations
+func GetAllLanguages() map[string]LanguageConfig {
+	return languages
 }

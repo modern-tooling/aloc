@@ -82,7 +82,7 @@ aloc/
 ├── internal/
 │   ├── scanner/
 │   │   ├── walker.go         # Parallel filesystem traversal
-│   │   ├── counter.go        # LOC counting (tokei-style)
+│   │   ├── counter.go        # LOC counting with comment detection
 │   │   ├── language.go       # Language detection
 │   │   └── git.go            # Git metadata (churn, authors)
 │   ├── inference/

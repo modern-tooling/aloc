@@ -137,7 +137,9 @@ func (w *Walker) Walk(ctx context.Context) (<-chan string, <-chan error) {
 					".husky",
 					// other caches
 					"dist", "build", "target", "out",
-					".angular", ".svelte-kit":
+					".angular", ".svelte-kit",
+					// generated/temp directories
+					"generated", "tmp":
 					return filepath.SkipDir
 				}
 				return nil

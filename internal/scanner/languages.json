@@ -1,0 +1,7000 @@
+{
+  "languages": {
+    "ABNF": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "abnf"
+      ],
+      "category": "other"
+    },
+    "AWK": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "awk"
+      ],
+      "shebangs": [
+        "#!/bin/awk -f"
+      ],
+      "category": "primary"
+    },
+    "Abap": {
+      "name": "ABAP",
+      "line_comment": [
+        "*",
+        "\\\""
+      ],
+      "extensions": [
+        "abap"
+      ],
+      "category": "primary"
+    },
+    "ActionScript": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "as"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Ada": {
+      "line_comment": [
+        "--"
+      ],
+      "extensions": [
+        "ada",
+        "adb",
+        "ads",
+        "pad"
+      ],
+      "category": "primary"
+    },
+    "Agda": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "agda"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Alex": {
+      "extensions": [
+        "x"
+      ],
+      "category": "primary"
+    },
+    "Alloy": {
+      "line_comment": [
+        "--",
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "als"
+      ],
+      "category": "primary"
+    },
+    "Apl": {
+      "name": "APL",
+      "line_comment": [
+        "⍝"
+      ],
+      "extensions": [
+        "apl",
+        "aplf",
+        "apls"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Arduino": {
+      "name": "Arduino C++",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ino"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ArkTS": {
+      "name": "Ark TypeScript",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ets"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Arturo": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "art"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "AsciiDoc": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "////",
+          "////"
+        ]
+      ],
+      "extensions": [
+        "adoc",
+        "asciidoc"
+      ],
+      "category": "docs"
+    },
+    "Asn1": {
+      "name": "ASN.1",
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "asn1"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Asp": {
+      "name": "ASP",
+      "line_comment": [
+        "'",
+        "REM"
+      ],
+      "extensions": [
+        "asa",
+        "asp"
+      ],
+      "category": "primary"
+    },
+    "AspNet": {
+      "name": "ASP.NET",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "\u003c%--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "asax",
+        "ascx",
+        "asmx",
+        "aspx",
+        "master",
+        "sitemap",
+        "webinfo"
+      ],
+      "category": "primary"
+    },
+    "Assembly": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "asm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "AssemblyGAS": {
+      "name": "GNU Style Assembly",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "s"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Astro": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ],
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "astro"
+      ],
+      "category": "web"
+    },
+    "Ats": {
+      "name": "ATS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ],
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "dats",
+        "hats",
+        "sats",
+        "atxt"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "AutoHotKey": {
+      "line_comment": [
+        ";"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ahk"
+      ],
+      "category": "other"
+    },
+    "Autoconf": {
+      "line_comment": [
+        "#",
+        "dnl"
+      ],
+      "extensions": [
+        "in"
+      ],
+      "category": "infra"
+    },
+    "Autoit": {
+      "line_comment": [
+        ";"
+      ],
+      "multi_line_comments": [
+        [
+          "#comments-start",
+          "#comments-end"
+        ],
+        [
+          "#cs",
+          "#ce"
+        ]
+      ],
+      "extensions": [
+        "au3"
+      ],
+      "category": "other"
+    },
+    "Automake": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "am"
+      ],
+      "category": "infra"
+    },
+    "AvaloniaXaml": {
+      "name": "AXAML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "axaml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Ballerina": {
+      "line_comment": [
+        "//",
+        "#"
+      ],
+      "extensions": [
+        "bal"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Bash": {
+      "name": "BASH",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "bash"
+      ],
+      "shebangs": [
+        "#!/bin/bash"
+      ],
+      "env": [
+        "bash"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Batch": {
+      "line_comment": [
+        "REM",
+        "::"
+      ],
+      "extensions": [
+        "bat",
+        "btm",
+        "cmd"
+      ],
+      "category": "infra"
+    },
+    "Bazel": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "bzl",
+        "bazel",
+        "bzlmod"
+      ],
+      "filenames": [
+        "build",
+        "workspace",
+        "module"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Bean": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "bean",
+        "beancount"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Bicep": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "bicep",
+        "bicepparam"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Bitbake": {
+      "name": "Bitbake",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "bb",
+        "bbclass",
+        "bbappend",
+        "inc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Bqn": {
+      "name": "BQN",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "bqn"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "BrightScript": {
+      "line_comment": [
+        "'",
+        "REM"
+      ],
+      "extensions": [
+        "brs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "C": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "c",
+        "ec",
+        "pgc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "CHeader": {
+      "name": "C Header",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "h"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "CMake": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "cmake"
+      ],
+      "filenames": [
+        "cmakelists.txt"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "CSharp": {
+      "name": "C#",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cs",
+        "csx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "@\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "CShell": {
+      "name": "C Shell",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "csh"
+      ],
+      "shebangs": [
+        "#!/bin/csh"
+      ],
+      "env": [
+        "csh"
+      ],
+      "category": "primary"
+    },
+    "Cabal": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "cabal"
+      ],
+      "nested": true,
+      "category": "other"
+    },
+    "Cairo": {
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "cairo"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cangjie": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cj"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "#\\\"",
+          "\\\"#"
+        ],
+        [
+          "##\\\"",
+          "\\\"##"
+        ],
+        [
+          "###\\\"",
+          "\\\"###"
+        ],
+        [
+          "#'",
+          "'#"
+        ],
+        [
+          "##'",
+          "'##"
+        ],
+        [
+          "###'",
+          "'###"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cassius": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cassius"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Ceylon": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ceylon"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Chapel": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "chpl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cil": {
+      "name": "CIL (SELinux)",
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "cil"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Circom": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "circom"
+      ],
+      "category": "data"
+    },
+    "Clojure": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "clj"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ClojureC": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "cljc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ClojureScript": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "cljs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cobol": {
+      "name": "COBOL",
+      "line_comment": [
+        "*"
+      ],
+      "extensions": [
+        "cob",
+        "cbl",
+        "ccp",
+        "cobol",
+        "cpy"
+      ],
+      "category": "primary"
+    },
+    "CodeQL": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ql",
+        "qll"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "CoffeeScript": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "###",
+          "###"
+        ]
+      ],
+      "extensions": [
+        "coffee",
+        "cjsx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Cogent": {
+      "line_comment": [
+        "--"
+      ],
+      "extensions": [
+        "cogent"
+      ],
+      "category": "primary"
+    },
+    "ColdFusion": {
+      "multi_line_comments": [
+        [
+          "\u003c!---",
+          "---\u003e"
+        ]
+      ],
+      "extensions": [
+        "cfm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "ColdFusionScript": {
+      "name": "ColdFusion CFScript",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cfc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Coq": {
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "v"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cpp": {
+      "name": "C++",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cc",
+        "cpp",
+        "cxx",
+        "c++",
+        "pcc",
+        "tpp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "R\\\"(",
+          ")\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "CppHeader": {
+      "name": "C++ Header",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "hh",
+        "hpp",
+        "hxx",
+        "inl",
+        "ipp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "CppModule": {
+      "name": "C++ Module",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cppm",
+        "ixx",
+        "ccm",
+        "mpp",
+        "mxx",
+        "cxxm",
+        "hppm",
+        "hxxm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "R\\\"(",
+          ")\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Crystal": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "cr"
+      ],
+      "shebangs": [
+        "#!/usr/bin/crystal"
+      ],
+      "env": [
+        "crystal"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Css": {
+      "name": "CSS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "css"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "mime": [
+        "text/css"
+      ],
+      "category": "web"
+    },
+    "Cuda": {
+      "name": "CUDA",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cu"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Cue": {
+      "name": "CUE",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "cue"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "#\\\"",
+          "\\\"#"
+        ]
+      ],
+      "category": "data"
+    },
+    "Cython": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "pyx",
+        "pxd",
+        "pxi"
+      ],
+      "env": [
+        "cython"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "primary"
+    },
+    "D": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "d"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "nested_comments": [
+        [
+          "/+",
+          "+/"
+        ]
+      ],
+      "category": "primary"
+    },
+    "D2": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "extensions": [
+        "d2"
+      ],
+      "category": "data"
+    },
+    "Daml": {
+      "name": "DAML",
+      "line_comment": [
+        "-- "
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "daml"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Dart": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "dart"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "primary"
+    },
+    "DeviceTree": {
+      "name": "Device Tree",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "dts",
+        "dtsi"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Dhall": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "dhall"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "''",
+          "''"
+        ]
+      ],
+      "category": "data"
+    },
+    "Dockerfile": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "dockerfile",
+        "dockerignore"
+      ],
+      "filenames": [
+        "dockerfile"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "DotNetResource": {
+      "name": ".NET Resource",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "resx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "DreamMaker": {
+      "name": "Dream Maker",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "dm",
+        "dme"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "{\\\"",
+          "\\\"}"
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Dust": {
+      "name": "Dust.js",
+      "multi_line_comments": [
+        [
+          "{!",
+          "!}"
+        ]
+      ],
+      "extensions": [
+        "dust"
+      ],
+      "category": "web"
+    },
+    "ESDL": {
+      "name": "EdgeDB Schema Definition",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "esdl"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Ebuild": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "ebuild",
+        "eclass"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "EdgeQL": {
+      "name": "EdgeQL",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "edgeql"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "$",
+          "$"
+        ]
+      ],
+      "category": "data"
+    },
+    "Edn": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "edn"
+      ],
+      "category": "data"
+    },
+    "Eighth": {
+      "name": "8th",
+      "line_comment": [
+        "\\\\ ",
+        "-- "
+      ],
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "8th"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Elisp": {
+      "name": "Emacs Lisp",
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "el"
+      ],
+      "category": "primary"
+    },
+    "Elixir": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "ex",
+        "exs"
+      ],
+      "quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Elm": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "elm"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Elvish": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "elv"
+      ],
+      "env": [
+        "elvish"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "EmacsDevEnv": {
+      "name": "Emacs Dev Env",
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "ede"
+      ],
+      "category": "primary"
+    },
+    "Emojicode": {
+      "line_comment": [
+        "💭"
+      ],
+      "multi_line_comments": [
+        [
+          "💭🔜",
+          "🔚💭"
+        ],
+        [
+          "📗",
+          "📗"
+        ],
+        [
+          "📘",
+          "📘"
+        ]
+      ],
+      "extensions": [
+        "emojic",
+        "🍇"
+      ],
+      "quotes": [
+        [
+          "❌🔤",
+          "❌🔤"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Erlang": {
+      "line_comment": [
+        "%"
+      ],
+      "extensions": [
+        "erl",
+        "hrl"
+      ],
+      "category": "primary"
+    },
+    "FEN": {
+      "name": "FEN",
+      "extensions": [
+        "fen"
+      ],
+      "blank": true,
+      "category": "data"
+    },
+    "FSharp": {
+      "name": "F#",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "fs",
+        "fsi",
+        "fsx",
+        "fsscript"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "@\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Factor": {
+      "line_comment": [
+        "!",
+        "#!"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "factor"
+      ],
+      "category": "primary"
+    },
+    "Fennel": {
+      "line_comment": [
+        ";",
+        ";;"
+      ],
+      "extensions": [
+        "fnl",
+        "fnlm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Fish": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "fish"
+      ],
+      "shebangs": [
+        "#!/bin/fish"
+      ],
+      "env": [
+        "fish"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "FlatBuffers": {
+      "name": "FlatBuffers Schema",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "fbs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "ForgeConfig": {
+      "name": "Forge Config",
+      "line_comment": [
+        "#",
+        "~"
+      ],
+      "extensions": [
+        "cfg"
+      ],
+      "category": "infra"
+    },
+    "Forth": {
+      "line_comment": [
+        "\\\\"
+      ],
+      "multi_line_comments": [
+        [
+          "( ",
+          ")"
+        ]
+      ],
+      "extensions": [
+        "4th",
+        "forth",
+        "fr",
+        "frt",
+        "fth",
+        "f83",
+        "fb",
+        "fpm",
+        "e4",
+        "rx",
+        "ft"
+      ],
+      "category": "primary"
+    },
+    "FortranLegacy": {
+      "name": "FORTRAN Legacy",
+      "line_comment": [
+        "c",
+        "C",
+        "!",
+        "*"
+      ],
+      "extensions": [
+        "f",
+        "for",
+        "ftn",
+        "f77",
+        "pfo"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "FortranModern": {
+      "name": "FORTRAN Modern",
+      "line_comment": [
+        "!"
+      ],
+      "extensions": [
+        "f03",
+        "f08",
+        "f90",
+        "f95",
+        "fpp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "FreeMarker": {
+      "multi_line_comments": [
+        [
+          "\u003c#--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "ftl",
+        "ftlh",
+        "ftlx"
+      ],
+      "category": "web"
+    },
+    "Fstar": {
+      "name": "F*",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "fst",
+        "fsti"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Futhark": {
+      "line_comment": [
+        "--"
+      ],
+      "extensions": [
+        "fut"
+      ],
+      "category": "primary"
+    },
+    "GDB": {
+      "name": "GDB Script",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "gdb"
+      ],
+      "category": "primary"
+    },
+    "GdScript": {
+      "name": "GDScript",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "gd"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "GdShader": {
+      "name": "GDShader",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "gdshader"
+      ],
+      "category": "primary"
+    },
+    "Gherkin": {
+      "name": "Gherkin (Cucumber)",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "feature"
+      ],
+      "category": "docs"
+    },
+    "Gleam": {
+      "name": "Gleam",
+      "line_comment": [
+        "//",
+        "///",
+        "////"
+      ],
+      "extensions": [
+        "gleam"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "GlimmerJs": {
+      "name": "Glimmer JS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ],
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "gjs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "important_syntax": [
+        "\u003ctemplate",
+        "\u003cstyle"
+      ],
+      "category": "web"
+    },
+    "GlimmerTs": {
+      "name": "Glimmer TS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ],
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "gts"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "important_syntax": [
+        "\u003ctemplate",
+        "\u003cstyle"
+      ],
+      "category": "web"
+    },
+    "Glsl": {
+      "name": "GLSL",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "vert",
+        "tesc",
+        "tese",
+        "geom",
+        "frag",
+        "comp",
+        "mesh",
+        "task",
+        "rgen",
+        "rint",
+        "rahit",
+        "rchit",
+        "rmiss",
+        "rcall",
+        "glsl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Gml": {
+      "name": "Gml",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "gml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Go": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "go"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Gohtml": {
+      "name": "Go HTML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "{{/*",
+          "*/}}"
+        ]
+      ],
+      "extensions": [
+        "gohtml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Graphql": {
+      "name": "GraphQL",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "gql",
+        "graphql"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Groovy": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "groovy",
+        "grt",
+        "gtpl",
+        "gvy"
+      ],
+      "env": [
+        "groovy"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Gwion": {
+      "line_comment": [
+        "#!"
+      ],
+      "extensions": [
+        "gw"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Haml": {
+      "line_comment": [
+        "-#"
+      ],
+      "extensions": [
+        "haml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Hamlet": {
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "hamlet"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Handlebars": {
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "{{!",
+          "}}"
+        ]
+      ],
+      "extensions": [
+        "hbs",
+        "handlebars"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Happy": {
+      "extensions": [
+        "y",
+        "ly"
+      ],
+      "category": "primary"
+    },
+    "Haskell": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "hs"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Haxe": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "hx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Hcl": {
+      "name": "HCL",
+      "line_comment": [
+        "#",
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "hcl",
+        "tf",
+        "tfvars"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "Headache": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ha"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Hex": {
+      "name": "HEX",
+      "extensions": [
+        "hex"
+      ],
+      "blank": true,
+      "category": "data"
+    },
+    "Hex0": {
+      "line_comment": [
+        "#",
+        ";"
+      ],
+      "extensions": [
+        "hex0"
+      ],
+      "category": "data"
+    },
+    "Hex1": {
+      "line_comment": [
+        "#",
+        ";"
+      ],
+      "extensions": [
+        "hex1"
+      ],
+      "category": "data"
+    },
+    "Hex2": {
+      "line_comment": [
+        "#",
+        ";"
+      ],
+      "extensions": [
+        "hex2"
+      ],
+      "category": "data"
+    },
+    "HiCad": {
+      "name": "HICAD",
+      "line_comment": [
+        "REM",
+        "rem"
+      ],
+      "extensions": [
+        "MAC",
+        "mac"
+      ],
+      "category": "primary"
+    },
+    "Hledger": {
+      "name": "hledger",
+      "line_comment": [
+        ";",
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "comment",
+          "end comment"
+        ]
+      ],
+      "extensions": [
+        "hledger"
+      ],
+      "category": "data"
+    },
+    "Hlsl": {
+      "name": "HLSL",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "hlsl",
+        "fx",
+        "fxsub"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "HolyC": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "HC",
+        "hc",
+        "ZC",
+        "zc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Html": {
+      "name": "HTML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "html",
+        "htm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "important_syntax": [
+        "\u003cscript",
+        "\u003cstyle"
+      ],
+      "kind": "html",
+      "mime": [
+        "text/html"
+      ],
+      "category": "web"
+    },
+    "Hy": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "hy"
+      ],
+      "category": "primary"
+    },
+    "Idris": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "idr",
+        "lidr"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Ini": {
+      "name": "INI",
+      "line_comment": [
+        ";",
+        "#"
+      ],
+      "extensions": [
+        "ini"
+      ],
+      "category": "data"
+    },
+    "IntelHex": {
+      "name": "Intel HEX",
+      "extensions": [
+        "ihex"
+      ],
+      "blank": true,
+      "category": "data"
+    },
+    "Isabelle": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{*",
+          "*}"
+        ],
+        [
+          "(*",
+          "*)"
+        ],
+        [
+          "‹",
+          "›"
+        ],
+        [
+          "\\\\\u003copen\u003e",
+          "\\\\\u003cclose\u003e"
+        ]
+      ],
+      "extensions": [
+        "thy"
+      ],
+      "quotes": [
+        [
+          "''",
+          "''"
+        ]
+      ],
+      "category": "primary"
+    },
+    "JSLT": {
+      "name": "JSLT",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "jslt"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Jai": {
+      "name": "JAI",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "jai"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Janet": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "janet"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Java": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "java"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "JavaScript": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cjs",
+        "js",
+        "mjs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "mime": [
+        "application/javascript",
+        "application/ecmascript",
+        "application/x-ecmascript",
+        "application/x-javascript",
+        "text/javascript",
+        "text/ecmascript",
+        "text/javascript1.0",
+        "text/javascript1.1",
+        "text/javascript1.2",
+        "text/javascript1.3",
+        "text/javascript1.4",
+        "text/javascript1.5",
+        "text/jscript",
+        "text/livescript",
+        "text/x-ecmascript",
+        "text/x-javascript"
+      ],
+      "category": "primary"
+    },
+    "Jinja2": {
+      "name": "Jinja2",
+      "multi_line_comments": [
+        [
+          "{#",
+          "#}"
+        ]
+      ],
+      "extensions": [
+        "j2",
+        "jinja"
+      ],
+      "blank": true,
+      "category": "web"
+    },
+    "Jq": {
+      "name": "jq",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "jq"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Json": {
+      "name": "JSON",
+      "extensions": [
+        "json"
+      ],
+      "blank": true,
+      "mime": [
+        "application/json",
+        "application/manifest+json"
+      ],
+      "category": "data"
+    },
+    "Jsonnet": {
+      "line_comment": [
+        "//",
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "jsonnet",
+        "libsonnet"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Jsx": {
+      "name": "JSX",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "jsx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Julia": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "#=",
+          "=#"
+        ]
+      ],
+      "extensions": [
+        "jl"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Julius": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "julius"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "web"
+    },
+    "Jupyter": {
+      "name": "Jupyter Notebooks",
+      "extensions": [
+        "ipynb"
+      ],
+      "category": "data"
+    },
+    "Just": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "just"
+      ],
+      "filenames": [
+        "justfile"
+      ],
+      "shebangs": [
+        "#!/usr/bin/env just --justfile"
+      ],
+      "env": [
+        "just"
+      ],
+      "category": "infra"
+    },
+    "K": {
+      "name": "K",
+      "line_comment": [
+        "/"
+      ],
+      "extensions": [
+        "k"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Kaem": {
+      "name": "Kaem",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "kaem"
+      ],
+      "category": "infra"
+    },
+    "KakouneScript": {
+      "name": "Kakoune script",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "kak"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Koka": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "kk"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Kotlin": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "kt",
+        "kts"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Ksh": {
+      "name": "Korn shell",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "ksh"
+      ],
+      "shebangs": [
+        "#!/bin/ksh"
+      ],
+      "env": [
+        "ksh"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "KvLanguage": {
+      "name": "KV Language",
+      "line_comment": [
+        "# "
+      ],
+      "extensions": [
+        "kv"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "LLVM": {
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "ll"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Lalrpop": {
+      "name": "LALRPOP",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "lalrpop"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "#\\\"",
+          "\\\"#"
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "r##\\\"",
+          "\\\"##"
+        ],
+        [
+          "r#\\\"",
+          "\\\"#"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Lean": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "/-",
+          "-/"
+        ]
+      ],
+      "extensions": [
+        "lean",
+        "hlean"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Less": {
+      "name": "LESS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "less"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Lex": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "l",
+        "lex"
+      ],
+      "category": "primary"
+    },
+    "LinguaFranca": {
+      "name": "Lingua Franca",
+      "line_comment": [
+        "//",
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "lf"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "important_syntax": [
+        "{="
+      ],
+      "category": "primary"
+    },
+    "LinkerScript": {
+      "name": "LD Script",
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ld",
+        "lds"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "Liquid": {
+      "name": "Liquid",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "{% comment %}",
+          "{% endcomment %}"
+        ]
+      ],
+      "extensions": [
+        "liquid"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Lisp": {
+      "name": "Common Lisp",
+      "line_comment": [
+        ";"
+      ],
+      "multi_line_comments": [
+        [
+          "#|",
+          "|#"
+        ]
+      ],
+      "extensions": [
+        "lisp",
+        "lsp",
+        "asd"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "LiveScript": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ls"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Logtalk": {
+      "line_comment": [
+        "%"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "lgt",
+        "logtalk"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "LolCode": {
+      "name": "LOLCODE",
+      "line_comment": [
+        "BTW"
+      ],
+      "multi_line_comments": [
+        [
+          "OBTW",
+          "TLDR"
+        ]
+      ],
+      "extensions": [
+        "lol"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Lua": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "--[[",
+          "]]"
+        ]
+      ],
+      "extensions": [
+        "lua",
+        "luau"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Lucius": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "lucius"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "M1Assembly": {
+      "name": "M1 Assembly",
+      "line_comment": [
+        "#",
+        ";"
+      ],
+      "extensions": [
+        "m1"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "M4": {
+      "line_comment": [
+        "#",
+        "dnl"
+      ],
+      "extensions": [
+        "m4"
+      ],
+      "quotes": [
+        [
+          "`",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Madlang": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "{#",
+          "#}"
+        ]
+      ],
+      "extensions": [
+        "mad"
+      ],
+      "category": "primary"
+    },
+    "Makefile": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "makefile",
+        "mak",
+        "mk"
+      ],
+      "filenames": [
+        "gnumakefile",
+        "makefile"
+      ],
+      "category": "infra"
+    },
+    "Markdown": {
+      "extensions": [
+        "md",
+        "markdown"
+      ],
+      "literate": true,
+      "important_syntax": [
+        "```"
+      ],
+      "category": "docs"
+    },
+    "Max": {
+      "extensions": [
+        "maxpat"
+      ],
+      "category": "primary"
+    },
+    "Mdx": {
+      "name": "MDX",
+      "extensions": [
+        "mdx"
+      ],
+      "literate": true,
+      "important_syntax": [
+        "```"
+      ],
+      "category": "web"
+    },
+    "Menhir": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ],
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "mll",
+        "mly",
+        "vy"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Meson": {
+      "line_comment": [
+        "#"
+      ],
+      "filenames": [
+        "meson.build",
+        "meson_options.txt"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Metal": {
+      "name": "Metal Shading Language",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "metal"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Mint": {
+      "extensions": [
+        "mint"
+      ],
+      "blank": true,
+      "category": "primary"
+    },
+    "Mlatu": {
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "mlt"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Modelica": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "mo",
+        "mos"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ModuleDef": {
+      "name": "Module-Definition",
+      "line_comment": [
+        ";"
+      ],
+      "extensions": [
+        "def"
+      ],
+      "category": "infra"
+    },
+    "Mojo": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "mojo",
+        "🔥"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "primary"
+    },
+    "MonkeyC": {
+      "name": "Monkey C",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "mc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "MoonBit": {
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "mbt",
+        "mbti"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "MoonScript": {
+      "line_comment": [
+        "--"
+      ],
+      "extensions": [
+        "moon"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "MsBuild": {
+      "name": "MSBuild",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "csproj",
+        "vbproj",
+        "fsproj",
+        "props",
+        "targets"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Mustache": {
+      "multi_line_comments": [
+        [
+          "{{!",
+          "}}"
+        ]
+      ],
+      "extensions": [
+        "mustache"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Nextflow": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "nextflow",
+        "nf"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "Nim": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "nim"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Nix": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "nix"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "infra"
+    },
+    "NotQuitePerl": {
+      "name": "Not Quite Perl",
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "=begin",
+          "=end"
+        ]
+      ],
+      "extensions": [
+        "nqp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "NuGetConfig": {
+      "name": "NuGet Config",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "filenames": [
+        "nuget.config",
+        "packages.config",
+        "nugetdefaults.config"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Nushell": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "nu"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "OCaml": {
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "ml",
+        "mli",
+        "re",
+        "rei"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ObjectiveC": {
+      "name": "Objective-C",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "m"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ObjectiveCpp": {
+      "name": "Objective-C++",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "mm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Odin": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "odin"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "OpenCL": {
+      "name": "OpenCL",
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cl",
+        "ocl"
+      ],
+      "category": "primary"
+    },
+    "OpenPolicyAgent": {
+      "name": "Open Policy Agent",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "rego"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "OpenQasm": {
+      "name": "OpenQASM",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "qasm"
+      ],
+      "category": "data"
+    },
+    "OpenScad": {
+      "name": "OpenSCAD",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "scad"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "OpenType": {
+      "name": "OpenType Feature File",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "fea"
+      ],
+      "category": "other"
+    },
+    "Org": {
+      "line_comment": [
+        "# "
+      ],
+      "extensions": [
+        "org"
+      ],
+      "category": "docs"
+    },
+    "Oz": {
+      "line_comment": [
+        "%"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "oz"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "PRACTICE": {
+      "name": "Lauterbach PRACTICE Script",
+      "line_comment": [
+        ";",
+        "//"
+      ],
+      "extensions": [
+        "cmm"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "PRQL": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "prql"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "mime": [
+        "application/prql"
+      ],
+      "category": "data"
+    },
+    "PSL": {
+      "name": "PSL Assertion",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "psl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "PacmanMakepkg": {
+      "name": "Pacman's makepkg",
+      "line_comment": [
+        "#"
+      ],
+      "filenames": [
+        "pkgbuild"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Pan": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "pan",
+        "tpl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Pascal": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "pas"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Perl": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "=pod",
+          "=cut"
+        ]
+      ],
+      "extensions": [
+        "pl",
+        "pm"
+      ],
+      "shebangs": [
+        "#!/usr/bin/perl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Pest": {
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "pest"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Phix": {
+      "line_comment": [
+        "--",
+        "//",
+        "#!"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ],
+        [
+          "--/*",
+          "--*/"
+        ]
+      ],
+      "extensions": [
+        "e",
+        "exw"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Php": {
+      "name": "PHP",
+      "line_comment": [
+        "#",
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "php"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "PlantUml": {
+      "name": "PlantUML",
+      "line_comment": [
+        "'"
+      ],
+      "multi_line_comments": [
+        [
+          "/'",
+          "'/"
+        ]
+      ],
+      "extensions": [
+        "puml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Po": {
+      "name": "PO File",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "po",
+        "pot"
+      ],
+      "category": "data"
+    },
+    "Poke": {
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "pk"
+      ],
+      "category": "primary"
+    },
+    "Polly": {
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "polly"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Pony": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "pony"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "PostCss": {
+      "name": "PostCSS",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "pcss",
+        "sss"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "PowerShell": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "\u003c#",
+          "#\u003e"
+        ]
+      ],
+      "extensions": [
+        "ps1",
+        "psm1",
+        "psd1",
+        "ps1xml",
+        "cdxml",
+        "pssc",
+        "psc1"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"@",
+          "@\\\""
+        ],
+        [
+          "@'",
+          "'@"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Processing": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "pde"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Prolog": {
+      "line_comment": [
+        "%"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "p",
+        "pro"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Protobuf": {
+      "name": "Protocol Buffers",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "proto"
+      ],
+      "category": "infra"
+    },
+    "Pug": {
+      "line_comment": [
+        "//",
+        "//-"
+      ],
+      "extensions": [
+        "pug"
+      ],
+      "quotes": [
+        [
+          "#{\\\"",
+          "\\\"}"
+        ],
+        [
+          "#{'",
+          "'}"
+        ],
+        [
+          "#{`",
+          "`}"
+        ]
+      ],
+      "category": "web"
+    },
+    "Puppet": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "pp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "PureScript": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "purs"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Pyret": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "#|",
+          "|#"
+        ]
+      ],
+      "extensions": [
+        "arr"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Python": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "py",
+        "pyw",
+        "pyi"
+      ],
+      "env": [
+        "python",
+        "python2",
+        "python3"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "mime": [
+        "text/x-python"
+      ],
+      "category": "primary"
+    },
+    "Q": {
+      "name": "Q",
+      "line_comment": [
+        "/"
+      ],
+      "extensions": [
+        "q"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Qcl": {
+      "name": "QCL",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "qcl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Qml": {
+      "name": "QML",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "qml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "R": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "r"
+      ],
+      "category": "primary"
+    },
+    "RON": {
+      "name": "Rusty Object Notation",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ron"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "RPMSpecfile": {
+      "name": "RPM Specfile",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "spec"
+      ],
+      "category": "infra"
+    },
+    "Racket": {
+      "line_comment": [
+        ";"
+      ],
+      "multi_line_comments": [
+        [
+          "#|",
+          "|#"
+        ]
+      ],
+      "extensions": [
+        "rkt",
+        "scrbl"
+      ],
+      "env": [
+        "racket"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Rakefile": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "=begin",
+          "=end"
+        ]
+      ],
+      "extensions": [
+        "rake"
+      ],
+      "filenames": [
+        "rakefile"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Raku": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "#`(",
+          ")"
+        ],
+        [
+          "#`[",
+          "]"
+        ],
+        [
+          "#`{",
+          "}"
+        ],
+        [
+          "#`｢",
+          "｣"
+        ]
+      ],
+      "extensions": [
+        "raku",
+        "rakumod",
+        "rakutest",
+        "pm6",
+        "pl6",
+        "p6"
+      ],
+      "shebangs": [
+        "#!/usr/bin/raku",
+        "#!/usr/bin/perl6"
+      ],
+      "env": [
+        "raku",
+        "perl6"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "#|{",
+          "}"
+        ],
+        [
+          "#={",
+          "}"
+        ],
+        [
+          "#|(",
+          ")"
+        ],
+        [
+          "#=(",
+          ")"
+        ],
+        [
+          "#|[",
+          "]"
+        ],
+        [
+          "#=[",
+          "]"
+        ],
+        [
+          "#|｢",
+          "｣"
+        ],
+        [
+          "#=｢",
+          "｣"
+        ],
+        [
+          "=begin pod",
+          "=end pod"
+        ],
+        [
+          "=begin code",
+          "=end code"
+        ],
+        [
+          "=begin head",
+          "=end head"
+        ],
+        [
+          "=begin item",
+          "=end item"
+        ],
+        [
+          "=begin table",
+          "=end table"
+        ],
+        [
+          "=begin defn",
+          "=end defn"
+        ],
+        [
+          "=begin para",
+          "=end para"
+        ],
+        [
+          "=begin comment",
+          "=end comment"
+        ],
+        [
+          "=begin data",
+          "=end data"
+        ],
+        [
+          "=begin DESCRIPTION",
+          "=end DESCRIPTION"
+        ],
+        [
+          "=begin SYNOPSIS",
+          "=end SYNOPSIS"
+        ],
+        [
+          "=begin ",
+          "=end "
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "｢",
+          "｣"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Razor": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "@*",
+          "*@"
+        ],
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "cshtml",
+        "razor"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "@\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "web"
+    },
+    "ReScript": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "res",
+        "resi"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "ReStructuredText": {
+      "extensions": [
+        "rst"
+      ],
+      "blank": true,
+      "category": "docs"
+    },
+    "Redscript": {
+      "name": "Redscript",
+      "line_comment": [
+        "//",
+        "///"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "reds"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Renpy": {
+      "name": "Ren'Py",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "rpy"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Roc": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "roc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Ruby": {
+      "line_comment": [
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "=begin",
+          "=end"
+        ]
+      ],
+      "extensions": [
+        "rb"
+      ],
+      "env": [
+        "ruby"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "RubyHtml": {
+      "name": "Ruby HTML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "rhtml",
+        "erb"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "important_syntax": [
+        "\u003cscript",
+        "\u003cstyle"
+      ],
+      "category": "primary"
+    },
+    "Rust": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "rs"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "#\\\"",
+          "\\\"#"
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "r##\\\"",
+          "\\\"##"
+        ],
+        [
+          "r#\\\"",
+          "\\\"#"
+        ]
+      ],
+      "important_syntax": [
+        "///",
+        "//!"
+      ],
+      "category": "primary"
+    },
+    "SIL": {
+      "name": "SIL",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ],
+        [
+          "/+",
+          "+/"
+        ]
+      ],
+      "extensions": [
+        "sil"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "SRecode": {
+      "name": "SRecode Template",
+      "line_comment": [
+        ";;"
+      ],
+      "extensions": [
+        "srt"
+      ],
+      "category": "primary"
+    },
+    "Sass": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sass",
+        "scss"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Scala": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sc",
+        "scala"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Scheme": {
+      "line_comment": [
+        ";"
+      ],
+      "multi_line_comments": [
+        [
+          "#|",
+          "|#"
+        ]
+      ],
+      "extensions": [
+        "scm",
+        "ss"
+      ],
+      "nested": true,
+      "category": "primary"
+    },
+    "Scons": {
+      "line_comment": [
+        "#"
+      ],
+      "filenames": [
+        "sconstruct",
+        "sconscript"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Sh": {
+      "name": "Shell",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "sh"
+      ],
+      "shebangs": [
+        "#!/bin/sh"
+      ],
+      "env": [
+        "sh"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "ShaderLab": {
+      "name": "ShaderLab",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "shader",
+        "cginc"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Slang": {
+      "name": "Slang",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "slang"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Slint": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "slint"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Smalltalk": {
+      "name": "Smalltalk",
+      "multi_line_comments": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "extensions": [
+        "cs.st",
+        "pck.st"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Sml": {
+      "name": "Standard ML (SML)",
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "sml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Snakemake": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "smk",
+        "rules"
+      ],
+      "filenames": [
+        "snakefile"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "doc_quotes": [
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Solidity": {
+      "name": "Solidity",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sol"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "SpecmanE": {
+      "name": "Specman e",
+      "line_comment": [
+        "--",
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "'\u003e",
+          "\u003c'"
+        ]
+      ],
+      "extensions": [
+        "e"
+      ],
+      "category": "primary"
+    },
+    "Spice": {
+      "name": "Spice Netlist",
+      "line_comment": [
+        "*"
+      ],
+      "extensions": [
+        "ckt"
+      ],
+      "category": "primary"
+    },
+    "Sqf": {
+      "name": "SQF",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sqf"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Sql": {
+      "name": "SQL",
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sql"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Stan": {
+      "line_comment": [
+        "//",
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "stan"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Stata": {
+      "line_comment": [
+        "//",
+        "*"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "do"
+      ],
+      "category": "data"
+    },
+    "Stratego": {
+      "name": "Stratego/XT",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "str"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "$[",
+          "]"
+        ],
+        [
+          "$\u003c",
+          "\u003e"
+        ],
+        [
+          "${",
+          "}"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Stylus": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "styl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Svelte": {
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "svelte"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "important_syntax": [
+        "\u003cscript",
+        "\u003cstyle"
+      ],
+      "category": "web"
+    },
+    "Svg": {
+      "name": "SVG",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "svg"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "mime": [
+        "image/svg+xml"
+      ],
+      "category": "data"
+    },
+    "Swift": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "swift"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Swig": {
+      "name": "SWIG",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "swg",
+        "i"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "SystemVerilog": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "sv",
+        "svh"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Tact": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "tact"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "data"
+    },
+    "Tcl": {
+      "name": "TCL",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "tcl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Templ": {
+      "name": "Templ",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "templ",
+        "tmpl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "important_syntax": [
+        "templ",
+        "script",
+        "css"
+      ],
+      "category": "web"
+    },
+    "Tera": {
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "{#",
+          "#}"
+        ]
+      ],
+      "extensions": [
+        "tera"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "Tex": {
+      "name": "TeX",
+      "line_comment": [
+        "%"
+      ],
+      "extensions": [
+        "tex",
+        "sty"
+      ],
+      "category": "docs"
+    },
+    "Text": {
+      "name": "Plain Text",
+      "extensions": [
+        "text",
+        "txt"
+      ],
+      "literate": true,
+      "mime": [
+        "text/plain"
+      ],
+      "category": "docs"
+    },
+    "Thrift": {
+      "line_comment": [
+        "#",
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "thrift"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Toml": {
+      "name": "TOML",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "toml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"\\\"\\\"",
+          "\\\"\\\"\\\""
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "data"
+    },
+    "Tsx": {
+      "name": "TSX",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "tsx"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Ttcn": {
+      "name": "TTCN-3",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ttcn",
+        "ttcn3",
+        "ttcnpp"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Twig": {
+      "name": "Twig",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "{#",
+          "#}"
+        ]
+      ],
+      "extensions": [
+        "twig"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "TypeScript": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ts",
+        "mts",
+        "cts"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Typst": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "typ"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UMPL": {
+      "line_comment": [
+        "!"
+      ],
+      "extensions": [
+        "umpl"
+      ],
+      "quotes": [
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Uiua": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "ua"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Unison": {
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "{-",
+          "-}"
+        ]
+      ],
+      "extensions": [
+        "u"
+      ],
+      "nested": true,
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UnrealDeveloperMarkdown": {
+      "name": "Unreal Markdown",
+      "extensions": [
+        "udn"
+      ],
+      "important_syntax": [
+        "```"
+      ],
+      "category": "docs"
+    },
+    "UnrealPlugin": {
+      "name": "Unreal Plugin",
+      "extensions": [
+        "uplugin"
+      ],
+      "blank": true,
+      "category": "data"
+    },
+    "UnrealProject": {
+      "name": "Unreal Project",
+      "extensions": [
+        "uproject"
+      ],
+      "blank": true,
+      "category": "data"
+    },
+    "UnrealScript": {
+      "name": "Unreal Script",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "uc",
+        "uci",
+        "upkg"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UnrealShader": {
+      "name": "Unreal Shader",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "usf"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UnrealShaderHeader": {
+      "name": "Unreal Shader Header",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "ush"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UrWeb": {
+      "name": "Ur/Web",
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "ur",
+        "urs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "UrWebProject": {
+      "name": "Ur/Web Project",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "urp"
+      ],
+      "category": "primary"
+    },
+    "VB6": {
+      "name": "VB6/VBA",
+      "line_comment": [
+        "'"
+      ],
+      "extensions": [
+        "frm",
+        "bas",
+        "cls",
+        "ctl",
+        "dsr"
+      ],
+      "category": "primary"
+    },
+    "VBScript": {
+      "name": "VBScript",
+      "line_comment": [
+        "'",
+        "REM"
+      ],
+      "extensions": [
+        "vbs"
+      ],
+      "category": "primary"
+    },
+    "Vala": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "vala"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Velocity": {
+      "name": "Apache Velocity",
+      "line_comment": [
+        "##"
+      ],
+      "multi_line_comments": [
+        [
+          "#*",
+          "*#"
+        ]
+      ],
+      "extensions": [
+        "vm"
+      ],
+      "quotes": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Verilog": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "vg",
+        "vh"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "VerilogArgsFile": {
+      "name": "Verilog Args File",
+      "extensions": [
+        "irunargs",
+        "xrunargs"
+      ],
+      "category": "data"
+    },
+    "Vhdl": {
+      "name": "VHDL",
+      "line_comment": [
+        "--"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "vhd",
+        "vhdl"
+      ],
+      "category": "primary"
+    },
+    "VimScript": {
+      "name": "Vim Script",
+      "line_comment": [
+        "\\\""
+      ],
+      "extensions": [
+        "vim"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Virgil": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "v3"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "VisualBasic": {
+      "name": "Visual Basic",
+      "line_comment": [
+        "'"
+      ],
+      "extensions": [
+        "vb"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "VisualStudioProject": {
+      "name": "Visual Studio Project",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "vcproj",
+        "vcxproj"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "VisualStudioSolution": {
+      "name": "Visual Studio Solution",
+      "extensions": [
+        "sln"
+      ],
+      "blank": true,
+      "category": "infra"
+    },
+    "Vue": {
+      "name": "Vue",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ],
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "vue"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "important_syntax": [
+        "\u003cscript",
+        "\u003cstyle",
+        "\u003ctemplate"
+      ],
+      "category": "web"
+    },
+    "WGSL": {
+      "name": "WebGPU Shader Language",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "wgsl"
+      ],
+      "category": "primary"
+    },
+    "WebAssembly": {
+      "line_comment": [
+        ";;"
+      ],
+      "extensions": [
+        "wat",
+        "wast"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    },
+    "WenYan": {
+      "name": "The WenYan Programming Language",
+      "multi_line_comments": [
+        [
+          "批曰。",
+          "。"
+        ],
+        [
+          "疏曰。",
+          "。"
+        ]
+      ],
+      "extensions": [
+        "wy"
+      ],
+      "category": "primary"
+    },
+    "Wolfram": {
+      "multi_line_comments": [
+        [
+          "(*",
+          "*)"
+        ]
+      ],
+      "extensions": [
+        "nb",
+        "wl"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "XSL": {
+      "name": "XSL",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "xsl",
+        "xslt"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Xaml": {
+      "name": "XAML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "xaml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "web"
+    },
+    "XcodeConfig": {
+      "name": "Xcode Config",
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "xcconfig"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "infra"
+    },
+    "Xml": {
+      "name": "XML",
+      "multi_line_comments": [
+        [
+          "\u003c!--",
+          "--\u003e"
+        ]
+      ],
+      "extensions": [
+        "xml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "Xtend": {
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "xtend"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "'''",
+          "'''"
+        ]
+      ],
+      "category": "primary"
+    },
+    "Yaml": {
+      "name": "YAML",
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "yaml",
+        "yml"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "data"
+    },
+    "ZenCode": {
+      "line_comment": [
+        "//",
+        "#"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "zs"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "verbatim_quotes": [
+        [
+          "@\\\"",
+          "\\\""
+        ],
+        [
+          "@'",
+          "'"
+        ]
+      ],
+      "category": "other"
+    },
+    "Zig": {
+      "line_comment": [
+        "//"
+      ],
+      "extensions": [
+        "zig"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ]
+      ],
+      "category": "primary"
+    },
+    "Zokrates": {
+      "name": "ZoKrates",
+      "line_comment": [
+        "//"
+      ],
+      "multi_line_comments": [
+        [
+          "/*",
+          "*/"
+        ]
+      ],
+      "extensions": [
+        "zok"
+      ],
+      "category": "data"
+    },
+    "Zsh": {
+      "line_comment": [
+        "#"
+      ],
+      "extensions": [
+        "zsh"
+      ],
+      "shebangs": [
+        "#!/bin/zsh"
+      ],
+      "quotes": [
+        [
+          "\\\"",
+          "\\\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "category": "primary"
+    }
+  }
+}

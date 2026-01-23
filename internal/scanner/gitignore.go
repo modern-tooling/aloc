@@ -20,28 +20,44 @@ type gitignorePattern struct {
 	anchored bool
 }
 
-// LoadGitIgnore loads and parses a .gitignore file
+// LoadGitIgnore loads and parses ignore files (.gitignore and .ignore)
+// Patterns from .ignore take precedence over .gitignore (loaded second)
 func LoadGitIgnore(root string) (*GitIgnore, error) {
-	path := filepath.Join(root, ".gitignore")
+	gi := &GitIgnore{root: root}
+
+	// load in order: .gitignore, then .ignore (later files take precedence)
+	for _, filename := range []string{".gitignore", ".ignore"} {
+		patterns, err := loadIgnoreFile(filepath.Join(root, filename))
+		if err != nil {
+			return nil, err
+		}
+		gi.patterns = append(gi.patterns, patterns...)
+	}
+
+	return gi, nil
+}
+
+// loadIgnoreFile parses a single ignore file and returns its patterns
+func loadIgnoreFile(path string) ([]gitignorePattern, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return &GitIgnore{root: root}, nil
+			return nil, nil
 		}
 		return nil, err
 	}
 	defer f.Close()
 
-	gi := &GitIgnore{root: root}
+	var patterns []gitignorePattern
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
-		gi.patterns = append(gi.patterns, parsePattern(line))
+		patterns = append(patterns, parsePattern(line))
 	}
-	return gi, scanner.Err()
+	return patterns, scanner.Err()
 }
 
 func parsePattern(line string) gitignorePattern {
