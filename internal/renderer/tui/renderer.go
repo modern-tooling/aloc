@@ -57,9 +57,19 @@ func (r *TUIRenderer) Render(report *model.Report) error {
 	// 4. Health Ratios (interpretive layer - ratios comparing roles)
 	sections = append(sections, RenderHealthRatiosWithGauges(report.Ratios, report.Summary.Lines, r.theme))
 
-	// 5. Effort Comparison (economics - last)
+	// 5. Git Dynamics (optional, after Health Ratios)
+	if report.Git != nil {
+		sections = append(sections, RenderGitDynamics(report.Git, r.theme, r.width))
+	}
+
+	// 6. Effort Comparison (economics - last, with git adjustment inlined)
 	if report.Effort != nil && report.Effort.Comparison != nil {
-		sections = append(sections, RenderDevelopmentCost(report.Effort, r.theme))
+		sections = append(sections, RenderDevelopmentCost(report.Effort, report.Git, r.theme))
+	}
+
+	// 7. Git Hint (marginal note, only if git not analyzed but detected)
+	if report.Git == nil && report.GitHint != nil {
+		sections = append(sections, RenderGitHint(report.GitHint, r.theme))
 	}
 
 	output := strings.Join(sections, "\n")

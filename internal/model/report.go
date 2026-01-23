@@ -12,7 +12,52 @@ type Report struct {
 	Trend            *Trend           `json:"trend,omitempty"`
 	Confidence       ConfidenceInfo   `json:"confidence"`
 	Effort           *EffortEstimates `json:"effort,omitempty"`
+	Git              *GitMetrics      `json:"git,omitempty"`
+	GitHint          *GitHint         `json:"git_hint,omitempty"`
 	Files            []*FileRecord    `json:"files,omitempty"`
+}
+
+// GitMetrics contains git-derived codebase dynamics
+type GitMetrics struct {
+	ChurnConcentration     GitChurnStat            `json:"churn_concentration"`
+	StableCore             float64                 `json:"stable_core"`
+	VolatileSurface        float64                 `json:"volatile_surface"`
+	RewritePressure        float64                 `json:"rewrite_pressure"`
+	OwnershipConcentration float64                 `json:"ownership_concentration"`
+	ParallelismSignal      string                  `json:"parallelism_signal"`
+	ChurnSeries            map[Role]GitSparkline   `json:"churn_series,omitempty"`
+	Adjustments            []GitEffortAdjustment   `json:"adjustments,omitempty"`
+	NetAdjustment          float64                 `json:"net_adjustment"`
+	WindowMonths           int                     `json:"window_months"`
+	BucketCount            int                     `json:"bucket_count"`
+	CommitCount            int                     `json:"commit_count"`
+	AnalysisNote           string                  `json:"analysis_note,omitempty"`
+}
+
+// GitChurnStat represents churn concentration metrics
+type GitChurnStat struct {
+	FilePercent float64 `json:"file_percent"`
+	EditPercent float64 `json:"edit_percent"`
+}
+
+// GitSparkline contains sparkline data (raw values for adaptive rendering)
+type GitSparkline struct {
+	Glyphs string `json:"glyphs"`           // pre-rendered at default width (for JSON/non-adaptive)
+	Values []int  `json:"values,omitempty"` // raw weekly churn values for adaptive rendering
+}
+
+// GitEffortAdjustment represents a single effort adjustment factor
+type GitEffortAdjustment struct {
+	Reason     string  `json:"reason"`
+	Adjustment float64 `json:"adjustment"`
+}
+
+// GitHint contains lightweight git detection info (no full analysis)
+type GitHint struct {
+	HasGit     bool   `json:"has_git"`
+	RepoAge    string `json:"repo_age,omitempty"`
+	LastCommit string `json:"last_commit,omitempty"`
+	IsActive   bool   `json:"is_active"`
 }
 
 // Meta contains metadata about the report

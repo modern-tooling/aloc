@@ -8,6 +8,7 @@ import (
 	"runtime"
 
 	"github.com/modern-tooling/aloc/internal/aggregator"
+	"github.com/modern-tooling/aloc/internal/git"
 	"github.com/modern-tooling/aloc/internal/inference"
 	"github.com/modern-tooling/aloc/internal/model"
 	"github.com/modern-tooling/aloc/internal/renderer"
@@ -39,6 +40,9 @@ var (
 	deepFlag        bool
 	versionFlag     bool
 	noEmbeddedFlag  bool
+	gitFlag         bool
+	gitMonthsFlag   int
+	gitSmoothFlag   bool
 )
 
 var rootCmd = &cobra.Command{
@@ -82,6 +86,9 @@ func init() {
 	rootCmd.Flags().StringVar(&aiModelFlag, "ai-model", "sonnet", "AI model for cost estimation (sonnet, opus, haiku)")
 	rootCmd.Flags().Float64Var(&humanCostFlag, "human-cost", 15000, "Monthly cost per engineer for COCOMO estimation")
 	rootCmd.Flags().BoolVar(&noEmbeddedFlag, "no-embedded", false, "Hide embedded code blocks in Markdown")
+	rootCmd.Flags().BoolVar(&gitFlag, "git", false, "Enable git history analysis for churn and stability signals")
+	rootCmd.Flags().IntVar(&gitMonthsFlag, "git-months", 6, "Months of history for sparklines")
+	rootCmd.Flags().BoolVar(&gitSmoothFlag, "git-smooth", false, "Use bi-weekly buckets instead of weekly for smoother sparklines")
 }
 
 func main() {
@@ -173,6 +180,12 @@ func run(cmd *cobra.Command, args []string) error {
 		RepoInfo: &model.RepoInfo{
 			Name: filepath.Base(absRoot),
 			Root: absRoot,
+		},
+		GitAnalysis: gitFlag,
+		GitOpts: git.Options{
+			SparklineMonths: gitMonthsFlag,
+			StabilityMonths: 18,
+			Smooth:          gitSmoothFlag,
 		},
 	})
 
