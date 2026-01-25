@@ -156,11 +156,13 @@ type EstimateRange struct {
 
 // TeamEstimate represents a delivery model's cost/effort estimate with ranges
 type TeamEstimate struct {
-	Cost         EstimateRange `json:"cost"`           // dollar range
-	ScheduleMo   EstimateRange `json:"schedule_months"` // schedule range in months
-	TeamSize     EstimateRange `json:"team_size"`       // team size range
-	AIToolingMo  EstimateRange `json:"ai_tooling_monthly,omitempty"` // monthly AI tooling cost (for agentic)
-	Model        string        `json:"model"`           // description of delivery model
+	Cost              EstimateRange `json:"cost"`                         // dollar range
+	ScheduleMo        EstimateRange `json:"schedule_months"`              // schedule range in months
+	TeamSize          EstimateRange `json:"team_size"`                    // team size range
+	EffectiveCapacity EstimateRange `json:"effective_capacity,omitempty"` // AI-leveraged output capacity
+	AIToolingMo       EstimateRange `json:"ai_tooling_monthly,omitempty"` // monthly AI tooling cost (for agentic)
+	AILeverage        EstimateRange `json:"ai_leverage,omitempty"`        // AI leverage multiplier by skill composition
+	Model             string        `json:"model"`                        // description of delivery model
 }
 
 // HumanEffort contains COCOMO-style human effort estimates (legacy, single-point)

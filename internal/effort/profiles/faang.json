@@ -1,0 +1,17 @@
+{
+  "name": "faang",
+  "description": "Top-tier tech (Google, Meta, etc.) calibrated to 80 LOC/day (1,760 LOC/month) based on Smacchia's long-term productivity data",
+  "cocomo_models": {
+    "organic": { "a": 0.43, "b": 1.05, "c": 2.5, "d": 0.38 },
+    "semi-detached": { "a": 0.53, "b": 1.12, "c": 2.5, "d": 0.35 },
+    "embedded": { "a": 0.64, "b": 1.20, "c": 2.5, "d": 0.32 }
+  },
+  "skill_bands": {
+    "junior": { "annual_cost_low": 130000, "annual_cost_high": 200000 },
+    "senior": { "annual_cost_low": 180000, "annual_cost_high": 350000 },
+    "staff": { "annual_cost_low": 280000, "annual_cost_high": 550000 },
+    "principal": { "annual_cost_low": 450000, "annual_cost_high": 1100000 },
+    "senior_principal": { "annual_cost_low": 1000000, "annual_cost_high": 2200000 },
+    "distinguished": { "annual_cost_low": 2500000, "annual_cost_high": 5000000 }
+  }
+}

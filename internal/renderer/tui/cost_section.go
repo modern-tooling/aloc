@@ -67,6 +67,14 @@ func RenderDevelopmentCost(effort *model.EffortEstimates, git *model.GitMetrics,
 					formatCurrencyCompact(aiTotalLow),
 					formatCurrencyCompact(aiTotalHigh))))
 		}
+
+		// AI leverage: show effective capacity if leverage is significant
+		if ag.AILeverage.High > 1.0 && ag.EffectiveCapacity.High > 0 {
+			fmt.Fprintf(&b, "  %s\n",
+				theme.Dim.Render(fmt.Sprintf("(AI leverage: %.1f–%.1f× · effective capacity: %.0f–%.0f engineers)",
+					ag.AILeverage.Low, ag.AILeverage.High,
+					ag.EffectiveCapacity.Low, ag.EffectiveCapacity.High)))
+		}
 	}
 
 	// Disclaimer

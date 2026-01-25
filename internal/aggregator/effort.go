@@ -21,7 +21,7 @@ func DefaultEffortOptions() EffortOptions {
 		IncludeHuman:      true,
 		IncludeAI:         true,
 		AIModel:           "sonnet",
-		HumanCostPerMonth: 15000,
+		HumanCostPerMonth: 0, // 0 = use blended cost from team composition
 	}
 }
 
@@ -52,11 +52,8 @@ func ComputeEffortEstimatesWithLines(totalLOC int, lines model.LineMetrics, opts
 	// Human effort (COCOMO)
 	if opts.IncludeHuman {
 		cocomoOpts := effort.COCOMOOptions{
-			CostPerMonth: opts.HumanCostPerMonth,
+			CostPerMonth: opts.HumanCostPerMonth, // 0 = use blended cost
 			Model:        "organic",
-		}
-		if cocomoOpts.CostPerMonth <= 0 {
-			cocomoOpts.CostPerMonth = 15000
 		}
 		human := effort.CalculateHumanEffort(totalLOC, cocomoOpts)
 		estimates.Human = &model.HumanEffort{
@@ -121,12 +118,10 @@ func ComputeEffortWithResponsibilities(totalLOC int, lines model.LineMetrics, re
 	}
 
 	// Compute delivery model estimates (ranges, not point estimates)
+	// CostPerMonth = 0 means use blended cost from team composition
 	cocomoOpts := effort.COCOMOOptions{
 		CostPerMonth: opts.HumanCostPerMonth,
 		Model:        "organic",
-	}
-	if cocomoOpts.CostPerMonth <= 0 {
-		cocomoOpts.CostPerMonth = 15000
 	}
 
 	// Market Replacement Estimate (Conventional Team)

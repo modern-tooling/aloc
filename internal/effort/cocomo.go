@@ -32,15 +32,14 @@ type HumanEffortEstimate struct {
 	KLOC               float64 `json:"kloc"`
 }
 
-// COCOMO coefficients by model type
-type cocomoCoeffs struct {
-	a, b, c, d float64
-}
-
-var cocomoModels = map[string]cocomoCoeffs{
-	"organic":       {a: 2.4, b: 1.05, c: 2.5, d: 0.38},
-	"semi-detached": {a: 3.0, b: 1.12, c: 2.5, d: 0.35},
-	"embedded":      {a: 3.6, b: 1.20, c: 2.5, d: 0.32},
+// getCocomoCoeffs returns COCOMO coefficients for the specified model type
+func getCocomoCoeffs(modelType string) (a, b, c, d float64) {
+	cfg := GetModelConfig()
+	coeffs, ok := cfg.COCOMOModels[modelType]
+	if !ok {
+		coeffs = cfg.COCOMOModels["organic"]
+	}
+	return coeffs.A, coeffs.B, coeffs.C, coeffs.D
 }
 
 // CalculateHumanEffort estimates development effort using COCOMO Basic model
@@ -51,18 +50,17 @@ var cocomoModels = map[string]cocomoCoeffs{
 //	Team = Effort / Time
 //	Cost = Effort * cost_per_month
 func CalculateHumanEffort(loc int, opts COCOMOOptions) HumanEffortEstimate {
-	if opts.CostPerMonth <= 0 {
-		opts.CostPerMonth = 15000
-	}
 	if opts.Model == "" {
 		opts.Model = "organic"
 	}
 
-	coeffs, ok := cocomoModels[opts.Model]
-	if !ok {
-		coeffs = cocomoModels["organic"]
+	cfg := GetModelConfig()
+	// validate model exists in config
+	if _, ok := cfg.COCOMOModels[opts.Model]; !ok {
 		opts.Model = "organic"
 	}
+
+	a, b, c, d := getCocomoCoeffs(opts.Model)
 
 	kloc := float64(loc) / 1000.0
 	if kloc < 0.001 {
@@ -70,19 +68,30 @@ func CalculateHumanEffort(loc int, opts COCOMOOptions) HumanEffortEstimate {
 	}
 
 	// Effort in person-months
-	effort := coeffs.a * math.Pow(kloc, coeffs.b)
+	effortPM := a * math.Pow(kloc, b)
 
 	// Schedule in months
-	schedule := coeffs.c * math.Pow(effort, coeffs.d)
+	schedule := c * math.Pow(effortPM, d)
 
 	// Team size
-	team := effort / schedule
+	team := effortPM / schedule
+
+	// Determine cost: use provided value or blended cost based on team composition
+	var costPerMonth float64
+	if opts.CostPerMonth > 0 {
+		costPerMonth = opts.CostPerMonth
+	} else {
+		// use blended cost based on team size
+		composition := GetTeamCompositionForSize(team)
+		low, high := BlendedMonthlyCost(composition)
+		costPerMonth = (low + high) / 2 // use midpoint for single-value estimate
+	}
 
 	// Cost
-	cost := effort * opts.CostPerMonth
+	cost := effortPM * costPerMonth
 
 	return HumanEffortEstimate{
-		EffortPersonMonths: effort,
+		EffortPersonMonths: effortPM,
 		ScheduleMonths:     schedule,
 		TeamSize:           team,
 		EstimatedCost:      cost,
@@ -93,30 +102,43 @@ func CalculateHumanEffort(loc int, opts COCOMOOptions) HumanEffortEstimate {
 
 // CalculateConventionalTeam estimates Market Replacement cost for a conventional team.
 // Returns a range (low-high) based on productivity and coordination variance.
+// Uses blended costs based on team composition when opts.CostPerMonth is not set.
 func CalculateConventionalTeam(loc int, opts COCOMOOptions) *model.TeamEstimate {
-	if opts.CostPerMonth <= 0 {
-		opts.CostPerMonth = 15000
-	}
+	cfg := GetModelConfig()
 
 	kloc := float64(loc) / 1000.0
 	if kloc < 0.001 {
 		return nil
 	}
 
-	// Use organic COCOMO as baseline
-	coeffs := cocomoModels["organic"]
+	// use organic COCOMO as baseline
+	a, b, c, d := getCocomoCoeffs("organic")
 
-	// Optimistic: higher productivity, lower overhead (0.85x effort)
-	effortLow := coeffs.a * math.Pow(kloc, coeffs.b) * 0.85
-	scheduleLow := coeffs.c * math.Pow(effortLow, coeffs.d)
+	// Calculate team sizes first (needed for blended cost lookup)
+	effortLow := a * math.Pow(kloc, b) * cfg.VarianceMultipliers.Optimistic
+	scheduleLow := c * math.Pow(effortLow, d)
 	teamLow := effortLow / scheduleLow
-	costLow := effortLow * opts.CostPerMonth
 
-	// Pessimistic: lower productivity, higher rework (1.30x effort)
-	effortHigh := coeffs.a * math.Pow(kloc, coeffs.b) * 1.30
-	scheduleHigh := coeffs.c * math.Pow(effortHigh, coeffs.d)
+	effortHigh := a * math.Pow(kloc, b) * cfg.VarianceMultipliers.Pessimistic
+	scheduleHigh := c * math.Pow(effortHigh, d)
 	teamHigh := effortHigh / scheduleHigh
-	costHigh := effortHigh * opts.CostPerMonth
+
+	// Determine cost per month: use provided value or blended cost based on team composition
+	var costPerMonthLow, costPerMonthHigh float64
+	if opts.CostPerMonth > 0 {
+		// explicit cost provided via --human-cost flag
+		costPerMonthLow = opts.CostPerMonth
+		costPerMonthHigh = opts.CostPerMonth
+	} else {
+		// use blended cost based on team size and composition
+		compositionLow := GetTeamCompositionForSize(teamLow)
+		compositionHigh := GetTeamCompositionForSize(teamHigh)
+		costPerMonthLow, _ = BlendedMonthlyCost(compositionLow)
+		_, costPerMonthHigh = BlendedMonthlyCost(compositionHigh)
+	}
+
+	costLow := effortLow * costPerMonthLow
+	costHigh := effortHigh * costPerMonthHigh
 
 	return &model.TeamEstimate{
 		Cost:       model.EstimateRange{Low: costLow, High: costHigh},
@@ -138,10 +160,11 @@ func CalculateConventionalTeam(loc int, opts COCOMOOptions) *model.TeamEstimate 
 //
 // What changes: parallelism (via agents), idle time, drafting cost, iteration cycles
 // What does NOT: architecture decisions, final correctness, integration, human review
+//
+// AI leverage by skill is factored in: principal+ engineers get more from AI tools
+// because they can orchestrate agents effectively and validate output quickly.
 func CalculateAgenticTeam(loc int, opts COCOMOOptions) *model.TeamEstimate {
-	if opts.CostPerMonth <= 0 {
-		opts.CostPerMonth = 15000
-	}
+	cfg := GetModelConfig()
 
 	kloc := float64(loc) / 1000.0
 	if kloc < 0.001 {
@@ -153,30 +176,56 @@ func CalculateAgenticTeam(loc int, opts COCOMOOptions) *model.TeamEstimate {
 		return nil
 	}
 
-	// Schedule: 40-60% of conventional time
-	// Parallel execution helps early/mid phases; late-stage integration still serializes
-	scheduleLow := conv.ScheduleMo.Low * 0.40
-	scheduleHigh := conv.ScheduleMo.High * 0.60
+	ai := cfg.AINative
 
-	// Team: 33-50% of conventional size
-	// Someone still owns infra, QA, release; human review is a real bottleneck
-	// Assumes strong engineers, but not unicorns
-	teamLow := conv.TeamSize.Low * 0.33
-	teamHigh := conv.TeamSize.High * 0.50
-	if teamLow < 2 {
-		teamLow = 2 // minimum viable team
+	// Base team size reduction from AI assistance
+	baseTeamLow := conv.TeamSize.Low * ai.TeamSizeFactorLow
+	baseTeamHigh := conv.TeamSize.High * ai.TeamSizeFactorHigh
+	if baseTeamLow < ai.MinimumTeamSize {
+		baseTeamLow = ai.MinimumTeamSize
 	}
 
-	// Cost falls out from: fewer people × shorter time + AI tooling
-	humanCostLow := teamLow * scheduleLow * opts.CostPerMonth
-	humanCostHigh := teamHigh * scheduleHigh * opts.CostPerMonth
+	// Get team composition for the AI-native team size
+	// Smaller AI-native teams tend to be more senior-heavy
+	compositionLow := GetTeamCompositionForSize(baseTeamLow)
+	compositionHigh := GetTeamCompositionForSize(baseTeamHigh)
 
-	// AI tooling: ~$2K-$10K/month for typical projects, higher for large codebases
-	aiToolingLow := 2000.0
-	aiToolingHigh := 10000.0
-	if kloc > 100 {
-		aiToolingLow = 5000.0
-		aiToolingHigh = 20000.0
+	// Calculate AI leverage multiplier based on team composition
+	// Senior-heavy teams get more leverage from AI tools
+	leverageLow := BlendedAILeverage(compositionLow)
+	leverageHigh := BlendedAILeverage(compositionHigh)
+
+	// Effective team output = actual headcount × AI leverage
+	// This means a team of 3 principals (leverage 3.5×) outputs like 10.5 conventional engineers
+	effectiveCapacityLow := baseTeamLow * leverageLow
+	effectiveCapacityHigh := baseTeamHigh * leverageHigh
+
+	// Schedule compression is enhanced by AI leverage
+	// Higher leverage = faster completion because each person is more effective
+	// Base factor adjusted by sqrt of leverage (diminishing returns on parallelization)
+	scheduleLow := conv.ScheduleMo.Low * ai.ScheduleFactorLow / math.Sqrt(leverageLow)
+	scheduleHigh := conv.ScheduleMo.High * ai.ScheduleFactorHigh / math.Sqrt(leverageHigh)
+
+	// Determine cost per month: use provided value or blended cost
+	var costPerMonthLow, costPerMonthHigh float64
+	if opts.CostPerMonth > 0 {
+		costPerMonthLow = opts.CostPerMonth
+		costPerMonthHigh = opts.CostPerMonth
+	} else {
+		costPerMonthLow, _ = BlendedMonthlyCost(compositionLow)
+		_, costPerMonthHigh = BlendedMonthlyCost(compositionHigh)
+	}
+
+	// Cost = actual headcount × schedule × blended monthly cost + AI tooling
+	humanCostLow := baseTeamLow * scheduleLow * costPerMonthLow
+	humanCostHigh := baseTeamHigh * scheduleHigh * costPerMonthHigh
+
+	// AI tooling: configurable, higher for large codebases
+	aiToolingLow := ai.ToolingMonthlyLow
+	aiToolingHigh := ai.ToolingMonthlyHigh
+	if kloc > ai.LargeCodebaseThresholdK {
+		aiToolingLow = ai.ToolingMonthlyLowLarge
+		aiToolingHigh = ai.ToolingMonthlyHighLarge
 	}
 
 	// Total cost = human labor + AI tooling over schedule duration
@@ -184,10 +233,12 @@ func CalculateAgenticTeam(loc int, opts COCOMOOptions) *model.TeamEstimate {
 	costHigh := humanCostHigh + (aiToolingHigh * scheduleHigh)
 
 	return &model.TeamEstimate{
-		Cost:        model.EstimateRange{Low: costLow, High: costHigh},
-		ScheduleMo:  model.EstimateRange{Low: scheduleLow, High: scheduleHigh},
-		TeamSize:    model.EstimateRange{Low: teamLow, High: teamHigh},
-		AIToolingMo: model.EstimateRange{Low: aiToolingLow, High: aiToolingHigh},
-		Model:       "AI-Native Team (Agentic/Parallel)",
+		Cost:              model.EstimateRange{Low: costLow, High: costHigh},
+		ScheduleMo:        model.EstimateRange{Low: scheduleLow, High: scheduleHigh},
+		TeamSize:          model.EstimateRange{Low: baseTeamLow, High: baseTeamHigh},
+		EffectiveCapacity: model.EstimateRange{Low: effectiveCapacityLow, High: effectiveCapacityHigh},
+		AIToolingMo:       model.EstimateRange{Low: aiToolingLow, High: aiToolingHigh},
+		AILeverage:        model.EstimateRange{Low: leverageLow, High: leverageHigh},
+		Model:             "AI-Native Team (Agentic/Parallel)",
 	}
 }

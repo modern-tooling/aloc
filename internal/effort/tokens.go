@@ -1,6 +1,10 @@
 package effort
 
-import "github.com/modern-tooling/aloc/internal/model"
+import (
+	"fmt"
+
+	"github.com/modern-tooling/aloc/internal/model"
+)
 
 // TokenEstimate contains estimated token counts for AI processing
 type TokenEstimate struct {
@@ -95,17 +99,14 @@ func EstimateInputTokens(outputTokens int64, ratio float64) int64 {
 	return int64(float64(outputTokens) * ratio)
 }
 
-// Implementation model constants
-const (
-	// AvgLOCPerFile is the average lines of code per file
-	AvgLOCPerFile = 160
-	// IterationsPerFile is the number of API calls per file (implement + test + fix cycles)
-	IterationsPerFile = 10
-	// ContextPerCall is the input tokens per API call (context loading)
-	ContextPerCall = 20000
-	// OutputPerCall is the output tokens per API call (code generation)
-	OutputPerCall = 2000
-)
+// getTokenParams returns token estimation parameters from config
+func getTokenParams() (avgLOCPerFile, iterationsPerFile, contextPerCall, outputPerCall int) {
+	cfg := GetModelConfig()
+	return cfg.TokenEstimation.AvgLOCPerFile,
+		cfg.TokenEstimation.IterationsPerFile,
+		cfg.TokenEstimation.ContextPerCall,
+		cfg.TokenEstimation.OutputPerCall
+}
 
 // ImplementationTokenEstimate contains token estimates for full implementation
 type ImplementationTokenEstimate struct {
@@ -123,25 +124,27 @@ type ImplementationTokenEstimate struct {
 // - Context loading per API call
 // - Code generation output (not just analysis)
 func EstimateImplementationTokens(loc int) ImplementationTokenEstimate {
+	avgLOCPerFile, iterationsPerFile, contextPerCall, outputPerCall := getTokenParams()
+
 	// Calculate number of files
-	files := loc / AvgLOCPerFile
+	files := loc / avgLOCPerFile
 	if files < 1 {
 		files = 1
 	}
 
 	// Total API calls = files × iterations
-	apiCalls := files * IterationsPerFile
+	apiCalls := files * iterationsPerFile
 
 	// Token estimation
-	inputTokens := int64(apiCalls) * int64(ContextPerCall)
-	outputTokens := int64(apiCalls) * int64(OutputPerCall)
+	inputTokens := int64(apiCalls) * int64(contextPerCall)
+	outputTokens := int64(apiCalls) * int64(outputPerCall)
 	totalTokens := inputTokens + outputTokens
 
 	assumptions := []string{
-		"~160 LOC per file average",
-		"~10 iterations per file (implement + test + fix cycles)",
-		"~20K input tokens per call (context)",
-		"~2K output tokens per call (code generation)",
+		fmt.Sprintf("~%d LOC per file average", avgLOCPerFile),
+		fmt.Sprintf("~%d iterations per file (implement + test + fix cycles)", iterationsPerFile),
+		fmt.Sprintf("~%dK input tokens per call (context)", contextPerCall/1000),
+		fmt.Sprintf("~%dK output tokens per call (code generation)", outputPerCall/1000),
 	}
 
 	return ImplementationTokenEstimate{

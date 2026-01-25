@@ -8,6 +8,7 @@ import (
 	"runtime"
 
 	"github.com/modern-tooling/aloc/internal/aggregator"
+	"github.com/modern-tooling/aloc/internal/effort"
 	"github.com/modern-tooling/aloc/internal/git"
 	"github.com/modern-tooling/aloc/internal/inference"
 	"github.com/modern-tooling/aloc/internal/model"
@@ -43,6 +44,8 @@ var (
 	gitFlag         bool
 	gitMonthsFlag   int
 	gitSmoothFlag   bool
+	modelConfigFlag string
+	profileFlag     string
 )
 
 var rootCmd = &cobra.Command{
@@ -84,11 +87,13 @@ func init() {
 	rootCmd.Flags().BoolVar(&effortFlag, "effort", true, "Include effort estimates (human and AI cost)")
 	rootCmd.Flags().BoolVar(&noEffortFlag, "no-effort", false, "Disable effort estimates")
 	rootCmd.Flags().StringVar(&aiModelFlag, "ai-model", "sonnet", "AI model for cost estimation (sonnet, opus, haiku)")
-	rootCmd.Flags().Float64Var(&humanCostFlag, "human-cost", 15000, "Monthly cost per engineer for COCOMO estimation")
+	rootCmd.Flags().Float64Var(&humanCostFlag, "human-cost", 0, "Monthly cost per engineer (0 = use blended cost from team composition)")
 	rootCmd.Flags().BoolVar(&noEmbeddedFlag, "no-embedded", false, "Hide embedded code blocks in Markdown")
 	rootCmd.Flags().BoolVar(&gitFlag, "git", false, "Enable git history analysis for churn and stability signals")
 	rootCmd.Flags().IntVar(&gitMonthsFlag, "git-months", 6, "Months of history for sparklines")
 	rootCmd.Flags().BoolVar(&gitSmoothFlag, "git-smooth", false, "Use bi-weekly buckets instead of weekly for smoother sparklines")
+	rootCmd.Flags().StringVar(&modelConfigFlag, "model-config", "", "Path to JSON file with effort model configuration overrides")
+	rootCmd.Flags().StringVar(&profileFlag, "profile", "faang", "Effort estimation profile (faang)")
 }
 
 func main() {
@@ -104,6 +109,23 @@ func main() {
 
 func run(cmd *cobra.Command, args []string) error {
 	ctx := context.Background()
+
+	// Load model config early (before any effort calculations)
+	// Priority: --model-config file > --profile > default profile (faang)
+	if modelConfigFlag != "" {
+		modelCfg, err := effort.LoadModelConfig(modelConfigFlag)
+		if err != nil {
+			return fmt.Errorf("model config error: %w", err)
+		}
+		effort.SetModelConfig(modelCfg)
+	} else {
+		// load profile (defaults to "faang" if not specified)
+		modelCfg, err := effort.LoadProfile(profileFlag)
+		if err != nil {
+			return fmt.Errorf("profile error: %w", err)
+		}
+		effort.SetModelConfig(modelCfg)
+	}
 
 	// Determine root path
 	root := "."
