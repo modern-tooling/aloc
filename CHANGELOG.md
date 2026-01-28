@@ -2,6 +2,18 @@
 
 All notable changes to aloc are documented here.
 
+## [v0.5.0] - 2026-01-27
+
+### Added
+
+- **Engineer throughput analysis** with `--engineer` flag
+  - Per-contributor LOC metrics for core+test code
+  - Multiplier calculation against 80 LOC/day baseline
+  - Visual bar chart showing 1x/10x/50x benchmarks
+  - AI-assisted commit percentage per engineer
+  - Configurable analysis window with `--engineer-months` (default 6)
+- **Homebrew installation** now available via `modern-tooling/tap`
+
 ## [v0.4.0] - 2026-01-25
 
 ### Added

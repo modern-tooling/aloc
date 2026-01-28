@@ -18,3 +18,7 @@
 # Test artifacts
 *.test
 coverage.out
+
+# Local tool configs
+.sageox/
+.team-contexts/
