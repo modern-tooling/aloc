@@ -13,12 +13,14 @@ import (
 const Version = "0.2.0"
 
 type Options struct {
-	IncludeFiles  bool
-	RepoInfo      *model.RepoInfo
-	IncludeEffort bool
-	EffortOpts    EffortOptions
-	GitAnalysis   bool
-	GitOpts       git.Options
+	IncludeFiles     bool
+	RepoInfo         *model.RepoInfo
+	IncludeEffort    bool
+	EffortOpts       EffortOptions
+	GitAnalysis      bool
+	GitOpts          git.Options
+	EngineerAnalysis bool
+	EngineerOpts     git.EngineerOptions
 }
 
 func Compute(records []*model.FileRecord, opts Options) *model.Report {
@@ -74,7 +76,68 @@ func Compute(records []*model.FileRecord, opts Options) *model.Report {
 		}
 	}
 
+	// engineer throughput analysis (optional, separate from git analysis)
+	if opts.EngineerAnalysis && opts.RepoInfo != nil && opts.RepoInfo.Root != "" {
+		engineerAnalysis, err := computeEngineerMetrics(opts.RepoInfo.Root, records, opts.EngineerOpts)
+		if err != nil {
+			log.Printf("engineer analysis: %v", err)
+		} else if engineerAnalysis != nil {
+			report.Engineer = engineerAnalysis
+		}
+	}
+
 	return report
+}
+
+// computeEngineerMetrics runs engineer throughput analysis
+func computeEngineerMetrics(root string, records []*model.FileRecord, opts git.EngineerOptions) (*model.EngineerMetrics, error) {
+	// parse git history with author emails preserved
+	events, err := git.ParseHistory(git.ParseOptions{
+		SinceMonths:     opts.PeriodMonths,
+		Root:            root,
+		PreserveAuthors: true,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("parse git history: %w", err)
+	}
+
+	if len(events) == 0 {
+		return nil, nil
+	}
+
+	// map roles to events
+	git.MapRoles(events, records)
+
+	// calculate engineer stats
+	analysis := git.CalculateEngineerStats(events, opts)
+	if analysis == nil {
+		return nil, nil
+	}
+
+	return convertEngineerAnalysis(analysis), nil
+}
+
+// convertEngineerAnalysis converts internal engineer analysis to model format
+func convertEngineerAnalysis(a *git.EngineerAnalysis) *model.EngineerMetrics {
+	engineers := make([]model.EngineerStat, len(a.Engineers))
+	for i, e := range a.Engineers {
+		engineers[i] = model.EngineerStat{
+			AuthorEmail: e.AuthorEmail,
+			TotalLOC:    e.TotalLOC,
+			LOCPerDay:   e.LOCPerDay,
+			Multiplier:  e.Multiplier,
+			AIPercent:   e.AIPercent,
+			CommitCount: e.CommitCount,
+		}
+	}
+
+	return &model.EngineerMetrics{
+		Engineers:    engineers,
+		BaselineLOC:  a.BaselineLOC,
+		PeriodMonths: a.PeriodMonths,
+		MedianMult:   a.MedianMult,
+		Caveat:       a.Caveat,
+	}
 }
 
 // convertGitMetrics converts internal git metrics to model format

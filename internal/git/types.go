@@ -16,13 +16,14 @@ type Bucket struct {
 
 // ChangeEvent represents a single file change from git history
 type ChangeEvent struct {
-	When       time.Time
-	Path       string
-	Added      int
-	Deleted    int
-	Role       model.Role // mapped from file classification
-	Author     string     // hashed for privacy, used only for ownership calc
-	AIAssisted bool       // commit had explicit AI assistance marker
+	When        time.Time
+	Path        string
+	Added       int
+	Deleted     int
+	Role        model.Role // mapped from file classification
+	Author      string     // hashed for privacy, used only for ownership calc
+	AuthorEmail string     // raw email for engineer analysis (opt-in only)
+	AIAssisted  bool       // commit had explicit AI assistance marker
 }
 
 // Sparkline is the rendered output for a responsibility
@@ -79,4 +80,23 @@ type RepoHint struct {
 	RepoAge    time.Duration // time since first commit
 	LastCommit time.Time     // most recent commit
 	IsActive   bool          // commit in last 7 days
+}
+
+// EngineerStats represents throughput metrics for a single contributor
+type EngineerStats struct {
+	AuthorEmail string  // raw email (prefix shown in output)
+	TotalLOC    int     // core LOC added in period
+	LOCPerDay   float64 // TotalLOC / working_days
+	Multiplier  float64 // max(1.0, LOCPerDay / 80.0)
+	AIPercent   float64 // ai_commits / total_commits (0.0-1.0)
+	CommitCount int     // total commits in period
+}
+
+// EngineerAnalysis contains the complete engineer throughput analysis
+type EngineerAnalysis struct {
+	Engineers    []EngineerStats // sorted by Multiplier descending
+	BaselineLOC  int             // LOC/day baseline (80)
+	PeriodMonths int             // analysis window
+	MedianMult   float64         // median multiplier across all engineers
+	Caveat       string          // always-shown warning about volume metrics
 }

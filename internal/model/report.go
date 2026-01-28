@@ -4,17 +4,18 @@ import "time"
 
 // Report is the complete analysis output
 type Report struct {
-	Meta             Meta             `json:"meta"`
-	Summary          Summary          `json:"summary"`
-	Responsibilities []Responsibility `json:"responsibilities"`
-	Ratios           Ratios           `json:"ratios"`
-	Languages        []LanguageComp   `json:"languages"`
-	Trend            *Trend           `json:"trend,omitempty"`
-	Confidence       ConfidenceInfo   `json:"confidence"`
-	Effort           *EffortEstimates `json:"effort,omitempty"`
-	Git              *GitMetrics      `json:"git,omitempty"`
-	GitHint          *GitHint         `json:"git_hint,omitempty"`
-	Files            []*FileRecord    `json:"files,omitempty"`
+	Meta             Meta              `json:"meta"`
+	Summary          Summary           `json:"summary"`
+	Responsibilities []Responsibility  `json:"responsibilities"`
+	Ratios           Ratios            `json:"ratios"`
+	Languages        []LanguageComp    `json:"languages"`
+	Trend            *Trend            `json:"trend,omitempty"`
+	Confidence       ConfidenceInfo    `json:"confidence"`
+	Effort           *EffortEstimates  `json:"effort,omitempty"`
+	Git              *GitMetrics       `json:"git,omitempty"`
+	GitHint          *GitHint          `json:"git_hint,omitempty"`
+	Engineer         *EngineerMetrics  `json:"engineer,omitempty"`
+	Files            []*FileRecord     `json:"files,omitempty"`
 }
 
 // GitMetrics contains git-derived codebase dynamics
@@ -60,6 +61,25 @@ type GitHint struct {
 	RepoAge    string `json:"repo_age,omitempty"`
 	LastCommit string `json:"last_commit,omitempty"`
 	IsActive   bool   `json:"is_active"`
+}
+
+// EngineerMetrics contains per-contributor throughput analysis
+type EngineerMetrics struct {
+	Engineers    []EngineerStat `json:"engineers"`
+	BaselineLOC  int            `json:"baseline_loc"`
+	PeriodMonths int            `json:"period_months"`
+	MedianMult   float64        `json:"median_multiplier"`
+	Caveat       string         `json:"caveat"`
+}
+
+// EngineerStat represents throughput metrics for a single contributor
+type EngineerStat struct {
+	AuthorEmail string  `json:"author_email"`
+	TotalLOC    int     `json:"total_loc"`
+	LOCPerDay   float64 `json:"loc_per_day"`
+	Multiplier  float64 `json:"multiplier"`
+	AIPercent   float64 `json:"ai_percent"`
+	CommitCount int     `json:"commit_count"`
 }
 
 // Meta contains metadata about the report

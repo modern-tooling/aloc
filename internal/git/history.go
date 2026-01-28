@@ -14,8 +14,9 @@ import (
 
 // ParseOptions controls git log parsing
 type ParseOptions struct {
-	SinceMonths int    // how far back to look
-	Root        string // repository root
+	SinceMonths     int    // how far back to look
+	Root            string // repository root
+	PreserveAuthors bool   // keep raw emails for engineer analysis
 }
 
 // ParseHistory runs git log and returns change events
@@ -37,13 +38,14 @@ func ParseHistory(opts ParseOptions) ([]ChangeEvent, error) {
 		return nil, err
 	}
 
-	return parseGitLog(string(out)), nil
+	return parseGitLog(string(out), opts.PreserveAuthors), nil
 }
 
 // parseGitLog parses the git log output into change events
-func parseGitLog(output string) []ChangeEvent {
+func parseGitLog(output string, preserveAuthors bool) []ChangeEvent {
 	var events []ChangeEvent
 	var currentAuthor string
+	var currentEmail string
 	var currentTime time.Time
 	var currentAIAssisted bool
 
@@ -62,7 +64,11 @@ func parseGitLog(output string) []ChangeEvent {
 
 			parts := strings.Split(header, "|")
 			if len(parts) == 3 {
-				currentAuthor = hashAuthor(parts[1])
+				email := parts[1]
+				currentAuthor = hashAuthor(email)
+				if preserveAuthors {
+					currentEmail = strings.ToLower(strings.TrimSpace(email))
+				}
 				t, err := time.Parse(time.RFC3339, parts[2])
 				if err == nil {
 					currentTime = t
@@ -98,12 +104,13 @@ func parseGitLog(output string) []ChangeEvent {
 			}
 
 			events = append(events, ChangeEvent{
-				When:       currentTime,
-				Path:       fields[2],
-				Added:      added,
-				Deleted:    deleted,
-				Author:     currentAuthor,
-				AIAssisted: currentAIAssisted,
+				When:        currentTime,
+				Path:        fields[2],
+				Added:       added,
+				Deleted:     deleted,
+				Author:      currentAuthor,
+				AuthorEmail: currentEmail,
+				AIAssisted:  currentAIAssisted,
 			})
 		}
 	}

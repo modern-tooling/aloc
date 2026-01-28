@@ -28,24 +28,26 @@ var (
 )
 
 var (
-	formatFlag      string
-	noColorFlag     bool
-	filesFlag       bool
-	prettyFlag      bool
-	headerProbeFlag bool
-	configFlag      string
-	effortFlag      bool
-	noEffortFlag    bool
-	aiModelFlag     string
-	humanCostFlag   float64
-	deepFlag        bool
-	versionFlag     bool
-	noEmbeddedFlag  bool
-	gitFlag         bool
-	gitMonthsFlag   int
-	gitSmoothFlag   bool
-	modelConfigFlag string
-	profileFlag     string
+	formatFlag         string
+	noColorFlag        bool
+	filesFlag          bool
+	prettyFlag         bool
+	headerProbeFlag    bool
+	configFlag         string
+	effortFlag         bool
+	noEffortFlag       bool
+	aiModelFlag        string
+	humanCostFlag      float64
+	deepFlag           bool
+	versionFlag        bool
+	noEmbeddedFlag     bool
+	gitFlag            bool
+	gitMonthsFlag      int
+	gitSmoothFlag      bool
+	modelConfigFlag    string
+	profileFlag        string
+	engineerFlag       bool
+	engineerMonthsFlag int
 )
 
 var rootCmd = &cobra.Command{
@@ -94,6 +96,8 @@ func init() {
 	rootCmd.Flags().BoolVar(&gitSmoothFlag, "git-smooth", false, "Use bi-weekly buckets instead of weekly for smoother sparklines")
 	rootCmd.Flags().StringVar(&modelConfigFlag, "model-config", "", "Path to JSON file with effort model configuration overrides")
 	rootCmd.Flags().StringVar(&profileFlag, "profile", "faang", "Effort estimation profile (faang)")
+	rootCmd.Flags().BoolVar(&engineerFlag, "engineer", false, "Show engineer throughput analysis (replaces standard output)")
+	rootCmd.Flags().IntVar(&engineerMonthsFlag, "engineer-months", 6, "Months of history for engineer analysis")
 }
 
 func main() {
@@ -189,6 +193,9 @@ func run(cmd *cobra.Command, args []string) error {
 	// Determine if effort should be included (default true, unless --no-effort)
 	includeEffort := effortFlag && !noEffortFlag
 
+	// Auto-enable git when engineer mode is set
+	enableGit := gitFlag || engineerFlag
+
 	// Aggregate
 	report := aggregator.Compute(records, aggregator.Options{
 		IncludeFiles:  filesFlag,
@@ -203,11 +210,15 @@ func run(cmd *cobra.Command, args []string) error {
 			Name: filepath.Base(absRoot),
 			Root: absRoot,
 		},
-		GitAnalysis: gitFlag,
+		GitAnalysis: enableGit,
 		GitOpts: git.Options{
 			SparklineMonths: gitMonthsFlag,
 			StabilityMonths: 18,
 			Smooth:          gitSmoothFlag,
+		},
+		EngineerAnalysis: engineerFlag,
+		EngineerOpts: git.EngineerOptions{
+			PeriodMonths: engineerMonthsFlag,
 		},
 	})
 
@@ -219,6 +230,11 @@ func run(cmd *cobra.Command, args []string) error {
 		NoEmbedded: noEmbeddedFlag,
 	}
 
+	// Engineer mode uses separate render path (replaces standard output)
+	if engineerFlag {
+		return renderEngineerMode(report, opts, formatFlag)
+	}
+
 	var r renderer.Renderer
 	switch formatFlag {
 	case "json":
@@ -228,4 +244,33 @@ func run(cmd *cobra.Command, args []string) error {
 	}
 
 	return r.Render(report)
+}
+
+// renderEngineerMode renders only the engineer throughput analysis
+func renderEngineerMode(report *model.Report, opts renderer.Options, format string) error {
+	if report.Engineer == nil {
+		return fmt.Errorf("no engineer data available (requires git history with identifiable authors)")
+	}
+
+	switch format {
+	case "json":
+		r := jsonrenderer.NewJSONRenderer(opts)
+		// create a minimal report with just engineer data
+		engineerReport := &model.Report{
+			Meta:     report.Meta,
+			Engineer: report.Engineer,
+		}
+		return r.Render(engineerReport)
+	default:
+		// TUI mode - render only the engineer table
+		var theme *renderer.Theme
+		if opts.NoColor {
+			theme = renderer.NewNoColorTheme()
+		} else {
+			theme = renderer.NewDefaultTheme()
+		}
+		output := tui.RenderEngineerThroughput(report.Engineer, theme)
+		_, err := opts.Writer.Write([]byte(output))
+		return err
+	}
 }
