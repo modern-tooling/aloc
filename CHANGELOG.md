@@ -2,6 +2,18 @@
 
 All notable changes to aloc are documented here.
 
+## [v0.5.1] - 2026-02-02
+
+### Added
+
+- **Mobile/native directory exclusions** for React Native and iOS/Android projects
+  - `Pods` - CocoaPods dependencies (iOS)
+  - `xcuserdata`, `DerivedData` - Xcode build artifacts
+  - `Carthage` - Carthage dependencies (iOS)
+  - `.cxx`, `.kotlin` - Android native build caches
+  - `.expo` - Expo cache
+  - `.bundle` - Ruby bundler (used by CocoaPods)
+
 ## [v0.5.0] - 2026-01-27
 
 ### Added

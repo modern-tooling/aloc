@@ -139,7 +139,13 @@ func (w *Walker) Walk(ctx context.Context) (<-chan string, <-chan error) {
 					"dist", "build", "target", "out",
 					".angular", ".svelte-kit",
 					// generated/temp directories
-					"generated", "tmp":
+					"generated", "tmp",
+					// iOS/macOS build directories
+					"Pods", "xcuserdata", "DerivedData", "Carthage",
+					// Android/mobile build directories
+					".cxx", ".kotlin", ".expo",
+					// Ruby bundler (used by CocoaPods)
+					".bundle":
 					return filepath.SkipDir
 				}
 				return nil
