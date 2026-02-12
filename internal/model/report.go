@@ -75,6 +75,7 @@ type EngineerMetrics struct {
 // EngineerStat represents throughput metrics for a single contributor
 type EngineerStat struct {
 	AuthorEmail string  `json:"author_email"`
+	AuthorName  string  `json:"author_name,omitempty"`
 	TotalLOC    int     `json:"total_loc"`
 	LOCPerDay   float64 `json:"loc_per_day"`
 	Multiplier  float64 `json:"multiplier"`

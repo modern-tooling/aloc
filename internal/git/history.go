@@ -24,12 +24,13 @@ func ParseHistory(opts ParseOptions) ([]ChangeEvent, error) {
 	since := time.Now().AddDate(0, -opts.SinceMonths, 0).Format("2006-01-02")
 
 	// single efficient git command
-	// format: hash|email|timestamp followed by commit body (for AI marker detection)
+	// format: hash|email|name|timestamp followed by commit body (for AI marker detection)
+	// %aE/%aN use mailmap-resolved values (falls back to raw when no .mailmap)
 	// %x00 separates header from body, %x01 marks end of body
 	cmd := exec.Command("git", "-C", opts.Root,
 		"log",
 		"--numstat",
-		"--format=%H|%ae|%aI%x00%b%x01",
+		"--format=%H|%aE|%aN|%aI%x00%b%x01",
 		"--since="+since,
 	)
 
@@ -46,6 +47,7 @@ func parseGitLog(output string, preserveAuthors bool) []ChangeEvent {
 	var events []ChangeEvent
 	var currentAuthor string
 	var currentEmail string
+	var currentName string
 	var currentTime time.Time
 	var currentAIAssisted bool
 
@@ -56,20 +58,21 @@ func parseGitLog(output string, preserveAuthors bool) []ChangeEvent {
 			continue
 		}
 
-		// commit header line: hash|email|timestamp followed by \x00 body \x01
+		// commit header line: hash|email|name|timestamp followed by \x00 body \x01
 		// the body may span multiple lines between \x00 and \x01
-		if strings.Contains(line, "|") && strings.Count(line, "|") == 2 {
+		if strings.Contains(line, "|") && strings.Count(line, "|") == 3 {
 			// extract header and potential body start
 			header, bodyPart, _ := strings.Cut(line, "\x00")
 
 			parts := strings.Split(header, "|")
-			if len(parts) == 3 {
+			if len(parts) == 4 {
 				email := parts[1]
 				currentAuthor = hashAuthor(email)
 				if preserveAuthors {
 					currentEmail = strings.ToLower(strings.TrimSpace(email))
+					currentName = strings.TrimSpace(parts[2])
 				}
-				t, err := time.Parse(time.RFC3339, parts[2])
+				t, err := time.Parse(time.RFC3339, parts[3])
 				if err == nil {
 					currentTime = t
 				}
@@ -110,6 +113,7 @@ func parseGitLog(output string, preserveAuthors bool) []ChangeEvent {
 				Deleted:     deleted,
 				Author:      currentAuthor,
 				AuthorEmail: currentEmail,
+				AuthorName:  currentName,
 				AIAssisted:  currentAIAssisted,
 			})
 		}

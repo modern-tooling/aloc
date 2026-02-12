@@ -123,6 +123,7 @@ func convertEngineerAnalysis(a *git.EngineerAnalysis) *model.EngineerMetrics {
 	for i, e := range a.Engineers {
 		engineers[i] = model.EngineerStat{
 			AuthorEmail: e.AuthorEmail,
+			AuthorName:  e.AuthorName,
 			TotalLOC:    e.TotalLOC,
 			LOCPerDay:   e.LOCPerDay,
 			Multiplier:  e.Multiplier,

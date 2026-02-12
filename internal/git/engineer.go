@@ -37,6 +37,7 @@ func CalculateEngineerStats(events []ChangeEvent, opts EngineerOptions) *Enginee
 	// aggregate by author email (core+test LOC)
 	type authorData struct {
 		email        string
+		name         string
 		loc          int
 		aiCommits    int
 		totalCommits int
@@ -66,6 +67,7 @@ func CalculateEngineerStats(events []ChangeEvent, opts EngineerOptions) *Enginee
 		if !ok {
 			ad = &authorData{
 				email:        e.AuthorEmail,
+				name:         e.AuthorName,
 				firstCommit:  e.When,
 				commitHashes: make(map[string]bool),
 				aiHashes:     make(map[string]bool),
@@ -125,6 +127,7 @@ func CalculateEngineerStats(events []ChangeEvent, opts EngineerOptions) *Enginee
 
 		engineers = append(engineers, EngineerStats{
 			AuthorEmail: ad.email,
+			AuthorName:  ad.name,
 			TotalLOC:    ad.loc,
 			LOCPerDay:   locPerDay,
 			Multiplier:  multiplier,
@@ -167,6 +170,15 @@ func calculateMedianMultiplier(engineers []EngineerStats) float64 {
 		return (mults[mid-1] + mults[mid]) / 2
 	}
 	return mults[mid]
+}
+
+// DisplayName returns the best available display name for an engineer.
+// Prefers the mailmap-resolved name, falls back to email prefix.
+func DisplayName(name, email string) string {
+	if name != "" {
+		return name
+	}
+	return EmailPrefix(email)
 }
 
 // EmailPrefix extracts the prefix (username) from an email address

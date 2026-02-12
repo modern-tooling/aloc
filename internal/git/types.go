@@ -22,7 +22,8 @@ type ChangeEvent struct {
 	Deleted     int
 	Role        model.Role // mapped from file classification
 	Author      string     // hashed for privacy, used only for ownership calc
-	AuthorEmail string     // raw email for engineer analysis (opt-in only)
+	AuthorEmail string     // mailmap-resolved email for engineer analysis (opt-in only)
+	AuthorName  string     // mailmap-resolved name for display (opt-in only)
 	AIAssisted  bool       // commit had explicit AI assistance marker
 }
 
@@ -84,7 +85,8 @@ type RepoHint struct {
 
 // EngineerStats represents throughput metrics for a single contributor
 type EngineerStats struct {
-	AuthorEmail string  // raw email (prefix shown in output)
+	AuthorEmail string  // mailmap-resolved email (prefix shown in output)
+	AuthorName  string  // mailmap-resolved display name
 	TotalLOC    int     // core LOC added in period
 	LOCPerDay   float64 // TotalLOC / working_days
 	Multiplier  float64 // max(1.0, LOCPerDay / 80.0)

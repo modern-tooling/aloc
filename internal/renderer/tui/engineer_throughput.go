@@ -103,8 +103,8 @@ const (
 
 // renderEngineerRow renders a single engineer row with bar visualization
 func renderEngineerRow(sb *strings.Builder, eng model.EngineerStat, theme *renderer.Theme) {
-	// extract name from email and truncate if needed
-	name := git.EmailPrefix(eng.AuthorEmail)
+	// prefer mailmap-resolved name, fall back to email prefix
+	name := git.DisplayName(eng.AuthorName, eng.AuthorEmail)
 	if len(name) > nameWidth {
 		name = name[:nameWidth]
 	}
