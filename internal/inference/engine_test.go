@@ -366,6 +366,30 @@ func TestEngineInfer_GoSumFile(t *testing.T) {
 	}
 }
 
+func TestEngineInfer_PackageManagerLockfiles(t *testing.T) {
+	engine := NewEngine(Options{})
+
+	// lockfiles whose extension (.json, .yaml) would otherwise read as config
+	tests := []struct {
+		path string
+		want model.Role
+	}{
+		{"/project/package-lock.json", model.RoleGenerated},
+		{"/project/mobile/package-lock.json", model.RoleGenerated},
+		{"/project/npm-shrinkwrap.json", model.RoleGenerated},
+		{"/project/pnpm-lock.yaml", model.RoleGenerated},
+		// the manifests next to them are hand-written
+		{"/project/package.json", model.RoleConfig},
+		{"/project/pnpm-workspace.yaml", model.RoleConfig},
+	}
+	for _, tt := range tests {
+		record := engine.Infer(&model.RawFile{Path: tt.path, LOC: 1000})
+		if record.Role != tt.want {
+			t.Errorf("%s: Role = %v, want %v", tt.path, record.Role, tt.want)
+		}
+	}
+}
+
 func TestEngineInfer_PbGoFile(t *testing.T) {
 	engine := NewEngine(Options{})
 
