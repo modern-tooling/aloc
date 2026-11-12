@@ -7,10 +7,14 @@ import (
 	"strings"
 )
 
-// GitIgnore holds parsed gitignore patterns
+// GitIgnore holds parsed ignore patterns keyed by the directory whose
+// .gitignore or .ignore declared them, so a nested file applies only beneath
+// its own directory, as in git. It is not safe for concurrent use; the walker
+// calls AddDir and Match from its single WalkDir goroutine.
 type GitIgnore struct {
-	patterns []gitignorePattern
-	root     string
+	root string
+	// patterns by declaring directory: slash path relative to root, "" for root
+	patterns map[string][]gitignorePattern
 }
 
 type gitignorePattern struct {
@@ -20,21 +24,40 @@ type gitignorePattern struct {
 	anchored bool
 }
 
-// LoadGitIgnore loads and parses ignore files (.gitignore and .ignore)
-// Patterns from .ignore take precedence over .gitignore (loaded second)
+// LoadGitIgnore loads and parses the root's ignore files (.gitignore and .ignore).
+// Nested ignore files are added with AddDir as the walk reaches them.
 func LoadGitIgnore(root string) (*GitIgnore, error) {
-	gi := &GitIgnore{root: root}
+	gi := &GitIgnore{root: root, patterns: make(map[string][]gitignorePattern)}
+	if err := gi.AddDir(root); err != nil {
+		return nil, err
+	}
+	return gi, nil
+}
 
-	// load in order: .gitignore, then .ignore (later files take precedence)
-	for _, filename := range []string{".gitignore", ".ignore"} {
-		patterns, err := loadIgnoreFile(filepath.Join(root, filename))
-		if err != nil {
-			return nil, err
-		}
-		gi.patterns = append(gi.patterns, patterns...)
+// AddDir loads dir's .gitignore and .ignore, scoping their patterns to dir.
+// Patterns from .ignore take precedence over .gitignore (loaded second).
+func (gi *GitIgnore) AddDir(dir string) error {
+	rel, err := filepath.Rel(gi.root, dir)
+	if err != nil {
+		return err
+	}
+	key := filepath.ToSlash(rel)
+	if key == "." {
+		key = ""
 	}
 
-	return gi, nil
+	var patterns []gitignorePattern
+	for _, filename := range []string{".gitignore", ".ignore"} {
+		filePatterns, err := loadIgnoreFile(filepath.Join(dir, filename))
+		if err != nil {
+			return err
+		}
+		patterns = append(patterns, filePatterns...)
+	}
+	if len(patterns) > 0 {
+		gi.patterns[key] = patterns
+	}
+	return nil
 }
 
 // loadIgnoreFile parses a single ignore file and returns its patterns
@@ -98,18 +121,32 @@ func (gi *GitIgnore) Match(path string, isDir bool) bool {
 	}
 	relPath = filepath.ToSlash(relPath)
 
+	// walk from the root down through the path's ancestors: each directory's
+	// patterns see the path relative to that directory, a deeper file
+	// overrides a shallower one, and within a file the last match wins
 	ignored := false
-	for _, p := range gi.patterns {
-		if p.dirOnly && !isDir {
-			continue
+	dir, rest := "", relPath
+	for {
+		for _, p := range gi.patterns[dir] {
+			if p.dirOnly && !isDir {
+				continue
+			}
+			if matchPattern(p.pattern, rest, p.anchored) {
+				ignored = !p.negated
+			}
 		}
 
-		matched := matchPattern(p.pattern, relPath, p.anchored)
-		if matched {
-			ignored = !p.negated
+		next, remainder, found := strings.Cut(rest, "/")
+		if !found {
+			return ignored
 		}
+		if dir == "" {
+			dir = next
+		} else {
+			dir += "/" + next
+		}
+		rest = remainder
 	}
-	return ignored
 }
 
 func matchPattern(pattern, path string, anchored bool) bool {
