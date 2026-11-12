@@ -148,6 +148,12 @@ func (w *Walker) Walk(ctx context.Context) (<-chan string, <-chan error) {
 					".bundle":
 					return filepath.SkipDir
 				}
+				// the root's ignore files were loaded by NewWalker
+				if w.gitignore != nil && path != w.root {
+					if err := w.gitignore.AddDir(path); err != nil {
+						errs <- err
+					}
+				}
 				return nil
 			}
 
