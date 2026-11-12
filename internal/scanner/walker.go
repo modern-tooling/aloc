@@ -8,25 +8,33 @@ import (
 	"strings"
 )
 
-// knownSourceExtensions contains extensions that are recognized as source code
-// in quick mode. Files without these extensions are skipped to avoid processing
-// binaries and generated files.
-var knownSourceExtensions = map[string]bool{
-	".go": true, ".py": true, ".js": true, ".ts": true, ".tsx": true, ".jsx": true,
-	".java": true, ".kt": true, ".scala": true, ".rs": true, ".c": true, ".cpp": true,
-	".h": true, ".hpp": true, ".cs": true, ".rb": true, ".php": true, ".swift": true,
-	".m": true, ".mm": true, ".sql": true, ".sh": true, ".bash": true, ".zsh": true,
-	".yaml": true, ".yml": true, ".json": true, ".xml": true, ".html": true, ".css": true,
-	".scss": true, ".sass": true, ".less": true, ".vue": true, ".svelte": true,
-	".md": true, ".mdx": true, ".rst": true, ".txt": true,
-	".tf": true, ".hcl": true, ".proto": true, ".graphql": true,
-	".lua": true, ".r": true, ".R": true, ".pl": true, ".pm": true,
-	".ex": true, ".exs": true, ".erl": true, ".hs": true, ".clj": true,
-	".toml": true, ".ini": true, ".cfg": true, ".conf": true,
+// quickModeSkipExtensions are extensions languages.json can count but whose
+// files are almost always exported or machine-written (vector icons, notebooks
+// carrying their outputs, firmware images). Quick mode skips them; --deep
+// still counts them.
+var quickModeSkipExtensions = map[string]bool{
+	".svg": true, ".ipynb": true, ".hex": true, ".ihex": true,
 }
 
+// quickModeExtraExtensions are scanned in quick mode even though
+// languages.json has no entry for them.
+var quickModeExtraExtensions = map[string]bool{
+	".conf": true,
+}
+
+// isKnownSourceExtension reports whether quick mode scans files with ext
+// (lowercase, with the leading dot). It reads the extension table built from
+// languages.json, so a language added there is scanned without a second list
+// to keep in sync.
 func isKnownSourceExtension(ext string) bool {
-	return knownSourceExtensions[ext]
+	if quickModeSkipExtensions[ext] {
+		return false
+	}
+	if quickModeExtraExtensions[ext] {
+		return true
+	}
+	_, ok := extToLang[strings.TrimPrefix(ext, ".")]
+	return ok
 }
 
 type Walker struct {
