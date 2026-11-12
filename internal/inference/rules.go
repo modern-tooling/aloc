@@ -106,6 +106,12 @@ var FilenameRules = []FilenameRule{
 	{".config.", "contains", model.RoleConfig, "", 0.55},
 	{".conf", "suffix", model.RoleConfig, "", 0.55},
 
+	// Generated lockfiles whose extension would otherwise read as config
+	// (.lock and .sum lockfiles are covered by ExtensionRules)
+	{"package-lock.json", "suffix", model.RoleGenerated, "", 0.90},
+	{"npm-shrinkwrap.json", "suffix", model.RoleGenerated, "", 0.90},
+	{"pnpm-lock.yaml", "suffix", model.RoleGenerated, "", 0.90},
+
 	// Docs patterns
 	{"readme", "prefix", model.RoleDocs, "", 0.80},
 	{"changelog", "prefix", model.RoleDocs, "", 0.75},
